@@ -1,0 +1,94 @@
+{
+  "projectType": "application",
+  "root": "apps/teachers-archi-web",
+  "sourceRoot": "apps/teachers-archi-web/src",
+  "prefix": "teachers-archi-web",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/teachers-archi-web",
+        "index": "apps/teachers-archi-web/src/index.html",
+        "main": "apps/teachers-archi-web/src/main.ts",
+        "polyfills": "apps/teachers-archi-web/src/polyfills.ts",
+        "tsConfig": "apps/teachers-archi-web/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/teachers-archi-web/src/favicon.ico",
+          "apps/teachers-archi-web/src/assets"
+        ],
+        "styles": ["apps/teachers-archi-web/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/teachers-archi-web/src/environments/environment.ts",
+              "with": "apps/teachers-archi-web/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "teachers-archi-web:build:production"
+        },
+        "development": {
+          "browserTarget": "teachers-archi-web:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "teachers-archi-web:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/teachers-archi-web/src/**/*.ts",
+          "apps/teachers-archi-web/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/teachers-archi-web"],
+      "options": {
+        "jestConfig": "apps/teachers-archi-web/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

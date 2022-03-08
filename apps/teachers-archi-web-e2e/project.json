@@ -1,0 +1,28 @@
+{
+  "root": "apps/teachers-archi-web-e2e",
+  "sourceRoot": "apps/teachers-archi-web-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/teachers-archi-web-e2e/cypress.json",
+        "devServerTarget": "teachers-archi-web:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "teachers-archi-web:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/teachers-archi-web-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["teachers-archi-web"]
+}

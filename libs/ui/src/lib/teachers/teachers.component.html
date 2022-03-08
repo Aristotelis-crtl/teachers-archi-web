@@ -1,0 +1,5 @@
+<p>teachers works!</p>
+<section *ngFor="let teacher of $teachers | async">
+<p>{{teacher.firstName}}</p>
+<p>{{teacher.lastName}}</p>
+</section>

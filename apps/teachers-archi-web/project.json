@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/teachers-archi-web",
         "index": "apps/teachers-archi-web/src/index.html",
@@ -16,9 +18,17 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/teachers-archi-web/src/favicon.ico",
-          "apps/teachers-archi-web/src/assets"
+          "apps/teachers-archi-web/src/assets",
+          {
+            "glob": "**/*",
+            "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+            "output": "/assets/"
+          }
         ],
-        "styles": ["apps/teachers-archi-web/src/styles.scss"],
+        "styles": [
+          "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+          "apps/teachers-archi-web/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -83,7 +93,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/teachers-archi-web"],
+      "outputs": [
+        "coverage/apps/teachers-archi-web"
+      ],
       "options": {
         "jestConfig": "apps/teachers-archi-web/jest.config.js",
         "passWithNoTests": true

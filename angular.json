@@ -1,7 +1,10 @@
 {
   "version": 2,
   "projects": {
+    "api": "apps/api",
+    "teachers": "libs/teachers",
     "teachers-archi-web": "apps/teachers-archi-web",
-    "teachers-archi-web-e2e": "apps/teachers-archi-web-e2e"
+    "teachers-archi-web-e2e": "apps/teachers-archi-web-e2e",
+    "ui": "libs/ui"
   }
 }

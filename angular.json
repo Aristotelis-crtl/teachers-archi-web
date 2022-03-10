@@ -6,5 +6,8 @@
     "teachers-archi-web": "apps/teachers-archi-web",
     "teachers-archi-web-e2e": "apps/teachers-archi-web-e2e",
     "ui": "libs/ui"
+    /* "styles": [
+        "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
+      ] */
   }
 }

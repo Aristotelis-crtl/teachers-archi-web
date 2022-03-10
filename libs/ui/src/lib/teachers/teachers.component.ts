@@ -9,10 +9,17 @@ import {User} from '@prisma/client'
 })
 export class TeachersComponent implements OnInit {
   public $teachers!: Observable<User[]>;
+  public $teachersD: User[] | undefined
   constructor(public teachersService: TeachersService) { }
 
   ngOnInit(): void {
-    this.$teachers = this.teachersService.getTeachers();
+    this.$teachers = this.teachersService.getTeachers()
+  }
+
+  public create() {
+    return this.teachersService.createUser({firstName: 'jacqueees', lastName: "moule"}).subscribe(response => {
+      console.log(response);
+    });
   }
 
 }

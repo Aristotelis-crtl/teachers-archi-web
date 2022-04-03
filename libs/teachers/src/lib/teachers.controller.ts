@@ -15,6 +15,11 @@ export class TeachersController {
     return this.teachersService.getTeachers({});
   }
 
+  @Get('courses')
+  public async getCourses() {
+    return this.teachersService.getCourses({});
+  }
+
   @Post('login')
   public async getUser(@Body() postData: loginProps) {
     const { username, password } = postData;

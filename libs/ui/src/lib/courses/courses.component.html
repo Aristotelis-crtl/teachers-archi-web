@@ -1,0 +1,23 @@
+<p>courses works!</p>
+<nz-table #basicTable [nzData]="ues">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Address</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ue of ues">
+        <td>{{ue.intitule}}</td>
+        <td>{{ue.formation}}</td>
+        <td>{{ue.status}}</td>
+        <td>
+          <a>{{ue.status}}</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a>Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>

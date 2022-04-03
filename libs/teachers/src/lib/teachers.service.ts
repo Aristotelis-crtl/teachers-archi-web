@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, PrismaClient, User } from '@prisma/client';
+import { Prisma, PrismaClient, UE, User } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -18,6 +18,11 @@ export class TeachersService {
   }
   public createUser(data: Prisma.UserCreateInput): Promise<User> {
     return prisma.user.create({ data });
+  }
+
+  public getCourses(params: { where?: Prisma.UEWhereInput }): Promise<UE[]> {
+    const { where } = params;
+    return prisma.uE.findMany({ where });
   }
   /*  async updateUser(params: {
         where: Prisma.UserWhereUniqueInput;

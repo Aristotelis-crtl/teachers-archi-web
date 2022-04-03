@@ -7,13 +7,13 @@ const prisma = new PrismaClient();
 // npx prisma db seed --preview-feature
 async function main() {
   await prisma.$connect();
-  /*   await prisma.user.create({
+  /* await prisma.user.create({
     data: {
       firstName: 'test',
-      lastName: 'jacques',
+      lastName: 'joe',
       status: 'VAC',
       password: 'test',
-      username: 'dzqdzqdq',
+      username: 'azds',
     },
   }); */
   const test = [
@@ -2357,18 +2357,23 @@ async function main() {
       grTP: 0,
     },
   ];
-  test.map((f) =>
-    prisma.uE.create({
-      data: {
-        formation: f.Formation,
-        semestre: f.Semestre,
-        ref: f.Ref.toString(),
-        intitule: f.Intitulé,
-        status: f.Statut,
-        effectif: f.Effectif,
-      },
-    })
-  );
+
+  const asyncFunc = async () => {
+    const unresolvedPromises = test.map(async (f) => {
+      await prisma.uE.create({
+        data: {
+          formation: f.Formation,
+          semestre: f.Semestre,
+          ref: f.Ref.toString(),
+          intitule: f.Intitulé,
+          status: f.Statut,
+          effectif: f.Effectif,
+        },
+      });
+    });
+    const results = await Promise.all(unresolvedPromises);
+  };
+  asyncFunc();
 }
 
 main()

@@ -8,7 +8,6 @@ import { User } from '@prisma/client';
   styleUrls: ['./teachers.component.scss'],
 })
 export class TeachersComponent implements OnInit {
-  public $teachers!: Observable<User[]>;
   public teachersD: User[] | undefined;
   public user: any;
   constructor(public teachersService: TeachersService) {}

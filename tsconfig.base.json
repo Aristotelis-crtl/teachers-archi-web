@@ -14,6 +14,8 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "paths": {
       "@teachers-archi-web/teachers": ["libs/teachers/src/index.ts"],
       "@teachers-archi-web/ui": ["libs/ui/src/index.ts"]

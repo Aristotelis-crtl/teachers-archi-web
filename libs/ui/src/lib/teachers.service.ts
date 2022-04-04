@@ -20,20 +20,13 @@ export class TeachersService {
     this.user = this.userSubject.asObservable();
   }
 
+  //Teachers controllers
   public createUser(data: Prisma.UserCreateInput): Observable<User> {
     return this.http.post<User>(`${this.API_URL}/teachers`, data);
   }
 
   public getTeachers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.API_URL}/teachers`);
-  }
-
-  public getCourses(): Observable<UE[]> {
-    return this.http.get<UE[]>(`${this.API_URL}/teachers/courses`);
-  }
-
-  public getCourse(id: string): Observable<UE> {
-    return this.http.get<UE>(`${this.API_URL}/teachers/courses/${id}`);
   }
 
   public get userValue(): User | null {
@@ -45,7 +38,6 @@ export class TeachersService {
       .post<User>(`${this.API_URL}/teachers/login`, { username, password })
       .pipe(
         map((user) => {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('user', JSON.stringify(user));
           this.userSubject.next(user);
           return user;
@@ -53,9 +45,17 @@ export class TeachersService {
       );
   }
   logout() {
-    // remove user from local storage and set current user to null
     localStorage.removeItem('user');
     this.userSubject.next(null);
     this.router.navigate(['/account/login']);
+  }
+
+  //Courses controllers
+  public getCourses(): Observable<UE[]> {
+    return this.http.get<UE[]>(`${this.API_URL}/teachers/courses`);
+  }
+
+  public getCourse(id: string): Observable<UE> {
+    return this.http.get<UE>(`${this.API_URL}/teachers/courses/${id}`);
   }
 }

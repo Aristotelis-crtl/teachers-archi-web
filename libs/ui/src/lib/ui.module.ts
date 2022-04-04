@@ -16,6 +16,9 @@ import { CoursesComponent } from './courses/courses.component';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { RouterModule } from '@angular/router';
 import { CoursesDetailsComponent } from './courses-details/courses-details.component';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -27,6 +30,8 @@ import { CoursesDetailsComponent } from './courses-details/courses-details.compo
     NzTableModule,
     NzDividerModule,
     RouterModule,
+    NzCardModule,
+    NzGridModule,
   ],
   declarations: [TeachersComponent, CoursesComponent, CoursesDetailsComponent],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],

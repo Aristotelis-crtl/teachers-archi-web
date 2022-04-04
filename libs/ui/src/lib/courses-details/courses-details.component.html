@@ -1,3 +1,40 @@
-<p>courses-details works!</p>
-<p>{{ue?.intitule}}</p>
-
+<nz-card
+  style="width: 100%"
+  [nzTitle]="ue?.intitule + ' - Semestre ' + ue?.semestre"
+  [nzExtra]="extraTemplate"
+>
+  <p style="font-weight: bold; font-size: large">Statut: {{ ue?.status }}</p>
+  <div nz-row [nzGutter]="16">
+    <div nz-col class="gutter-row" nzSpan="12">
+      <div class="inner-box">
+        <p style="font-size: large; font-weight: bold">Nombre d'heures:</p>
+        <div>
+          <p>CM: {{ ue?.heuresCM }}</p>
+          <p>TD: {{ ue?.heuresTD }}</p>
+          <p>TP: {{ ue?.heuresTP }}</p>
+        </div>
+      </div>
+    </div>
+    <div nz-col class="gutter-row" nzSpan="12">
+      <div class="inner-box">
+        <p style="font-size: large; font-weight: bold">Nombre de groupes:</p>
+        <div>
+          <p>CM: {{ ue?.groupesCM }}</p>
+          <p>TD: {{ ue?.groupesTD }}</p>
+          <p>TP: {{ ue?.groupesTP }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p>Card content</p>
+  <p>Card content</p>
+  <p>Card content</p>
+  <p>Card content</p>
+  <p>Card content</p>
+  <p>Card content</p>
+  <p>Card content</p>
+  <p>Card content</p>
+</nz-card>
+<ng-template #extraTemplate>
+  <a>{{ ue?.ref }}</a>
+</ng-template>

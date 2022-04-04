@@ -22,7 +22,6 @@ export class TeachersController {
 
   @Get('courses/:id')
   public async getCourse(@Param('id') id: string) {
-    console.log('id', id);
     return this.teachersService.getCourse({ where: { id: { equals: id } } });
   }
 

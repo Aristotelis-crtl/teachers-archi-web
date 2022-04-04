@@ -29,14 +29,14 @@ model User {
 
 model Enseigne {
   id        String @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String
-  uEId      String
-  heuresCM  Int?
-  heuresTD  Int?
-  heuresTP  Int?
-  groupesCM Int?
-  groupesTD Int?
-  groupesTP Int?
+  userId    String @db.ObjectId
+  uEId      String @db.ObjectId
+  heuresCM  Float?
+  heuresTD  Float?
+  heuresTP  Float?
+  groupesCM Float?
+  groupesTD Float?
+  groupesTP Float?
   ue        UE     @relation(fields: [uEId], references: [id])
   user      User   @relation(fields: [userId], references: [id])
 }
@@ -48,12 +48,12 @@ model UE {
   ref       String
   intitule  String
   status    String
-  heuresCM  Int?
-  heuresTD  Int?
-  heuresTP  Int?
-  effectif  Int
-  groupesCM Int?
-  groupesTD Int?
-  groupesTP Int?
+  heuresCM  Float?
+  heuresTD  Float?
+  heuresTP  Float?
+  effectif  Int?
+  groupesCM Float?
+  groupesTD Float?
+  groupesTP Float?
   Enseigne  Enseigne[]
 }

@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { TeachersService } from './teachers.service';
-import { User as UserModel } from '@prisma/client';
+import { Enseigne, User as UserModel } from '@prisma/client';
 
 interface loginProps {
   username: string;
@@ -25,6 +25,17 @@ export class TeachersController {
     return this.teachersService.getCourse({ where: { id: { equals: id } } });
   }
 
+  @Get('enseigne')
+  public async getEnseignements() {
+    return this.teachersService.getEnseignements({});
+  }
+  @Get('enseigne/:id')
+  public async getEnseignementFromTeacher(@Param('id') id: string) {
+    return this.teachersService.getEnseignementFromTeacher({
+      where: { uEId: { equals: id } },
+    });
+  }
+
   @Post('login')
   public async getUser(@Body() postData: loginProps) {
     const { username, password } = postData;
@@ -42,6 +53,29 @@ export class TeachersController {
       username,
       password,
       status,
+    });
+  }
+  @Post('enseigne')
+  public async addEnseignement(@Body() postData: Enseigne): Promise<Enseigne> {
+    const {
+      heuresCM,
+      heuresTD,
+      heuresTP,
+      groupesCM,
+      groupesTD,
+      groupesTP,
+      userId,
+      uEId,
+    } = postData;
+    return this.teachersService.addEnseignement({
+      heuresCM,
+      heuresTD,
+      heuresTP,
+      groupesCM,
+      groupesTD,
+      groupesTP,
+      ue: { connect: { id: uEId } },
+      user: { connect: { id: userId } },
     });
   }
 }

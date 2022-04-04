@@ -18,6 +18,9 @@ import { RouterModule } from '@angular/router';
 import { CoursesDetailsComponent } from './courses-details/courses-details.component';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -32,6 +35,9 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     RouterModule,
     NzCardModule,
     NzGridModule,
+    NzModalModule,
+    NzFormModule,
+    ReactiveFormsModule,
   ],
   declarations: [TeachersComponent, CoursesComponent, CoursesDetailsComponent],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],

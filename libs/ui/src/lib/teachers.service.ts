@@ -1,15 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Prisma, UE, User } from '@prisma/client';
+import { Enseigne, Prisma, UE, User, Status } from '@prisma/client';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 //const prisma = new PrismaClient()
+interface ueProps extends UE {
+  Enseigne?: Enseigne[];
+}
 @Injectable({
   providedIn: 'root',
 })
 export class TeachersService {
   private API_URL = 'http://localhost:3333/api';
   private userSubject: BehaviorSubject<User | null>;
+
   public user: Observable<User | null>;
 
   constructor(public http: HttpClient, private router: Router) {
@@ -33,6 +37,17 @@ export class TeachersService {
     return this.userSubject.value;
   }
 
+  public getNombreHeure(
+    statusEnseignant: Status,
+    nombreHeure: number,
+    typeUe: 'CM' | 'TP' | 'TD'
+  ): number {
+    let res = 0;
+    if (typeUe == 'TD' || typeUe === 'TP') {
+      statusEnseignant === 'ATER' ? (res = 0.75 * nombreHeure) : nombreHeure;
+      return res;
+    } else return 1.5 * nombreHeure;
+  }
   login(username: string, password: string) {
     return this.http
       .post<User>(`${this.API_URL}/teachers/login`, { username, password })
@@ -51,11 +66,50 @@ export class TeachersService {
   }
 
   //Courses controllers
-  public getCourses(): Observable<UE[]> {
-    return this.http.get<UE[]>(`${this.API_URL}/teachers/courses`);
+  public getCourses(): Observable<ueProps[]> {
+    return this.http.get<ueProps[]>(`${this.API_URL}/teachers/courses`).pipe(
+      map((user) => {
+        return user;
+      })
+    );
   }
 
-  public getCourse(id: string): Observable<UE> {
-    return this.http.get<UE>(`${this.API_URL}/teachers/courses/${id}`);
+  public getCourse(id: string): Observable<ueProps> {
+    return this.http.get<ueProps>(`${this.API_URL}/teachers/courses/${id}`);
+  }
+
+  //Enseignement controllers
+  public getEnseignements(): Observable<Enseigne[]> {
+    return this.http.get<Enseigne[]>(`${this.API_URL}/teachers/enseigne`);
+  }
+  public getEnseignementFromTeacher(id: string): Observable<Enseigne> {
+    return this.http.get<Enseigne>(`${this.API_URL}/teachers/enseigne/${id}`);
+  }
+  addEnseignement(
+    userId: string,
+    uEId: string,
+    heuresCM?: number,
+    heuresTD?: number,
+    heuresTP?: number,
+    groupesCM?: number,
+    groupesTD?: number,
+    groupesTP?: number
+  ) {
+    return this.http
+      .post<Enseigne>(`${this.API_URL}/teachers/enseigne`, {
+        userId,
+        uEId,
+        heuresCM,
+        heuresTD,
+        heuresTP,
+        groupesCM,
+        groupesTD,
+        groupesTP,
+      })
+      .pipe(
+        map((enseigne) => {
+          return enseigne;
+        })
+      );
   }
 }

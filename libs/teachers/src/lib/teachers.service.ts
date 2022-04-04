@@ -24,6 +24,10 @@ export class TeachersService {
     const { where } = params;
     return prisma.uE.findMany({ where });
   }
+  public getCourse(params: { where: Prisma.UEWhereInput }): Promise<UE> {
+    const { where } = params;
+    return prisma.uE.findFirst({ where });
+  }
   /*  async updateUser(params: {
         where: Prisma.UserWhereUniqueInput;
         data: Prisma.UserUpdateInput;

@@ -14,6 +14,8 @@ import {} from '@angular/platform-browser';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { CoursesComponent } from './courses/courses.component';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { RouterModule } from '@angular/router';
+import { CoursesDetailsComponent } from './courses-details/courses-details.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -24,9 +26,10 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzButtonModule,
     NzTableModule,
     NzDividerModule,
+    RouterModule,
   ],
-  declarations: [TeachersComponent, CoursesComponent],
+  declarations: [TeachersComponent, CoursesComponent, CoursesDetailsComponent],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
-  exports: [TeachersComponent, CoursesComponent],
+  exports: [TeachersComponent, CoursesComponent, CoursesDetailsComponent],
 })
 export class UiModule {}

@@ -14,11 +14,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { IconsProviderModule } from './icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 registerLocaleData(fr);
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, UiModule, FormsModule, HttpClientModule, BrowserAnimationsModule, AppRoutingModule, IconsProviderModule, NzLayoutModule, NzMenuModule],
+  imports: [
+    BrowserModule,
+    UiModule,
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    IconsProviderModule,
+    NzLayoutModule,
+    NzMenuModule,
+    ScrollingModule,
+  ],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
   bootstrap: [AppComponent],
 })

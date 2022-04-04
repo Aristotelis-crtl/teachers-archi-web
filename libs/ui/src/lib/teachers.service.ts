@@ -32,6 +32,10 @@ export class TeachersService {
     return this.http.get<UE[]>(`${this.API_URL}/teachers/courses`);
   }
 
+  public getCourse(id: string): Observable<UE> {
+    return this.http.get<UE>(`${this.API_URL}/teachers/courses/${id}`);
+  }
+
   public get userValue(): User | null {
     return this.userSubject.value;
   }

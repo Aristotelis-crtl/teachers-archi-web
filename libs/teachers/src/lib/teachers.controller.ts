@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { TeachersService } from './teachers.service';
 import { User as UserModel } from '@prisma/client';
 
@@ -18,6 +18,12 @@ export class TeachersController {
   @Get('courses')
   public async getCourses() {
     return this.teachersService.getCourses({});
+  }
+
+  @Get('courses/:id')
+  public async getCourse(@Param('id') id: string) {
+    console.log('id', id);
+    return this.teachersService.getCourse({ where: { id: { equals: id } } });
   }
 
   @Post('login')

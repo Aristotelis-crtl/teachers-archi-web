@@ -1,23 +1,23 @@
-<p>courses works!</p>
-<nz-table #basicTable [nzData]="ues">
+<nz-table #editRowTable [nzData]="ues" [nzFrontPagination]="true" class="overflow-scroll">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Address</th>
+        <th>Formation</th>
+        <th>Parcours</th>
+        <th>Obligatoire</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let ue of ues">
+      <tr *ngFor="let ue of editRowTable.data">
         <td>{{ue.intitule}}</td>
         <td>{{ue.formation}}</td>
         <td>{{ue.status}}</td>
         <td>
           <a>{{ue.status}}</a>
           <nz-divider nzType="vertical"></nz-divider>
-          <a>Delete</a>
+          <a routerLink="{{ue.id}}">Voir</a>
         </td>
       </tr>
     </tbody>
   </nz-table>
+        

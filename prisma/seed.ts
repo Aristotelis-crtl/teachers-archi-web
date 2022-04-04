@@ -2368,6 +2368,12 @@ async function main() {
           intitule: f.Intitulé,
           status: f.Statut,
           effectif: f.Effectif,
+          heuresCM: f['h/CM'],
+          heuresTD: f['h/TD'],
+          heuresTP: f['h/TP'],
+          groupesCM: f.grCM,
+          groupesTD: f.grTD,
+          groupesTP: f.grTP,
         },
       });
     });

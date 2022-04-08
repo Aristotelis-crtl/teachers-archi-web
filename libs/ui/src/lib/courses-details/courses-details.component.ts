@@ -16,17 +16,19 @@ interface ueProps extends UE {
 export class CoursesDetailsComponent implements OnInit {
   public ue: ueProps | null = null;
   public enseigne: Enseigne | null = null;
-
   //handle numbers of courses avaible
   public nbCMRestant: number | undefined | null = 0;
   public nbTPRestant: number | undefined | null = 0;
   public nbTDRestant: number | undefined | null = 0;
+  disabledTD = false;
+  disabledTP = false;
+  disabledCM = false;
 
   private _isDead$ = new Subject();
 
   //public userId = ''
   validateForm!: FormGroup;
-  isVisible = true;
+  isVisible = false;
   constructor(
     public teachersService: TeachersService,
     private route: ActivatedRoute,
@@ -41,14 +43,19 @@ export class CoursesDetailsComponent implements OnInit {
       next: (x) => {
         this.ue = x;
         this.nbCMRestant =
-          (x.heuresCM || 0) -
-          (x.Enseigne?.reduce((x, acc) => x + (acc.heuresCM || 0), 0) || 0);
+          (x.groupesCM || 0) -
+          (x.Enseigne?.reduce((x, acc) => x + (acc.groupesCM || 0), 0) || 0);
         this.nbTDRestant =
-          (x.heuresTD || 0) -
-          (x.Enseigne?.reduce((x, acc) => x + (acc.heuresTD || 0), 0) || 0);
+          (x.groupesTD || 0) -
+          (x.Enseigne?.reduce((x, acc) => x + (acc.groupesTD || 0), 0) || 0);
         this.nbTPRestant =
-          (x.heuresTP || 0) -
-          (x.Enseigne?.reduce((x, acc) => x + (acc.heuresTP || 0), 0) || 0);
+          (x.groupesTP || 0) -
+          (x.Enseigne?.reduce((x, acc) => x + (acc.groupesTP || 0), 0) || 0);
+        this.disabledCM = this.nbCMRestant <= 0;
+        this.disabledTD = this.nbTDRestant <= 0;
+        this.disabledTP = this.nbTPRestant <= 0;
+
+        console.log('this', this.nbTDRestant);
       },
       complete: () => {
         console.log('done', this.ue);
@@ -56,9 +63,9 @@ export class CoursesDetailsComponent implements OnInit {
     });
     this.getEnseignement();
     this.validateForm = this.fb.group({
-      CM: [null, [Validators.required]],
-      TD: [null, [Validators.required]],
-      TP: [null, [Validators.required]],
+      CM: [null, { disabled: true }, [Validators.required]],
+      TD: [null, { disabled: true }, [Validators.required]],
+      TP: [null, { disabled: true }, [Validators.required]],
     });
   }
 

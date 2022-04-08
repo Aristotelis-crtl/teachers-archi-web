@@ -42,6 +42,7 @@ export class TeachersService {
     nombreHeure: number,
     typeUe: 'CM' | 'TP' | 'TD'
   ): number {
+    // TD/TP = 1 UC (ATER = 0.75), CM = 1.5 UC
     let res = 0;
     if (typeUe == 'TD' || typeUe === 'TP') {
       statusEnseignant === 'ATER' ? (res = 0.75 * nombreHeure) : nombreHeure;

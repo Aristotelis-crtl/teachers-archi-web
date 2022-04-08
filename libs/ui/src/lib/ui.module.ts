@@ -21,6 +21,10 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { ReactiveFormsModule } from '@angular/forms';
+import { IconsProviderModule } from './icons-provider.module';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { HeaderComponent } from './header/header.component';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 @NgModule({
   imports: [
@@ -38,9 +42,22 @@ import { ReactiveFormsModule } from '@angular/forms';
     NzModalModule,
     NzFormModule,
     ReactiveFormsModule,
+    IconsProviderModule,
+    NzInputNumberModule,
+    NzInputModule,
   ],
-  declarations: [TeachersComponent, CoursesComponent, CoursesDetailsComponent],
+  declarations: [
+    TeachersComponent,
+    CoursesComponent,
+    CoursesDetailsComponent,
+    HeaderComponent,
+  ],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
-  exports: [TeachersComponent, CoursesComponent, CoursesDetailsComponent],
+  exports: [
+    TeachersComponent,
+    CoursesComponent,
+    CoursesDetailsComponent,
+    HeaderComponent,
+  ],
 })
 export class UiModule {}

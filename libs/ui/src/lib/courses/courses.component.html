@@ -1,23 +1,46 @@
-<nz-table #editRowTable [nzData]="ues" [nzFrontPagination]="true" class="overflow-scroll">
-    <thead>
-      <tr>
-        <th>Formation</th>
-        <th>Parcours</th>
-        <th>Obligatoire</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ue of editRowTable.data">
-        <td>{{ue.intitule}}</td>
-        <td>{{ue.formation}}</td>
-        <td>{{ue.status}}</td>
-        <td>
-          <a>{{ue.status}}</a>
-          <nz-divider nzType="vertical"></nz-divider>
-          <a routerLink="{{ue.id}}">Voir</a>
-        </td>
-      </tr>
-    </tbody>
-  </nz-table>
-        
+<div style="margin-bottom: 1rem">
+  <input
+    type="text"
+    nz-input
+    placeholder="Intitulé de la formation"
+    (change)="updateFilter()"
+    id="filterName"
+  />
+</div>
+<nz-table
+  #editRowTable
+  [nzData]="listOfDataFiltered"
+  [nzFrontPagination]="true"
+  class="overflow-scroll"
+  nzFixed
+>
+  <thead>
+    <tr>
+      <th
+        *ngFor="let column of listOfColumns"
+        [nzSortOrder]="column.sortOrder"
+        [nzSortFn]="column.sortFn"
+        [nzSortDirections]="column.sortDirections"
+        [nzFilterMultiple]="column.filterMultiple"
+        [nzFilters]="column.listOfFilter"
+        [nzFilterFn]="column.filterFn"
+        [nzShowFilter]="column.nzShowFilter ? false : true"
+        [nzShowSort]="column.nzShowFilter ? false : true"
+      >
+        {{ column.name }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ue of editRowTable.data">
+      <td>{{ ue.intitule }}</td>
+      <td>{{ ue.formation }}</td>
+      <td>{{ ue.status }}</td>
+      <td>
+        <!--         <nz-divider nzType="vertical"></nz-divider>
+ -->
+        <a routerLink="{{ ue.id }}">Voir</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

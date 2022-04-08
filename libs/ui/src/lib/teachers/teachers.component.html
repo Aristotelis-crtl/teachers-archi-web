@@ -1,8 +1,7 @@
-<p>teachers works!</p>
 <section *ngFor="let teacher of teachersD">
-<p>{{teacher.firstName}}</p>
-<p>{{teacher.lastName}}</p>
+  <p>{{ teacher.firstName }}</p>
+  <p>{{ teacher.lastName }}</p>
 </section>
 <nz-layout class="app-layout">
-    <button nz-button nzType="primary" (click)="create()">Créer un user</button>
+  <button nz-button nzType="primary" (click)="create()">Créer un user</button>
 </nz-layout>

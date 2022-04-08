@@ -1,0 +1,58 @@
+<div *ngIf="isLoggedIn; else isDisconnected">
+  <button
+    nz-button
+    nzType="primary"
+    (click)="logout()"
+    style="margin-right: 2rem"
+  >
+    Se déconnecter
+  </button>
+</div>
+<ng-template #isDisconnected>
+  <button
+    nz-button
+    nzType="primary"
+    (click)="showModal()"
+    style="margin-right: 2rem"
+  >
+    Se connecter
+  </button>
+</ng-template>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Connexion"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="onSubmit()"
+  nzOkText="Se connecter"
+  nzCentered
+>
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="validateForm" class="login-form">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Veuillez entrer votre nom d'utilisateur">
+          <nz-input-group nzPrefixIcon="user">
+            <input
+              type="text"
+              nz-input
+              formControlName="userName"
+              placeholder="Username"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Veuillez entrer votre mot de passe">
+          <nz-input-group nzPrefixIcon="lock">
+            <input
+              type="password"
+              nz-input
+              formControlName="password"
+              placeholder="Password"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div *ngIf="wrongPassword">Identifiants incorrects</div>
+    </form>
+  </ng-container>
+</nz-modal>

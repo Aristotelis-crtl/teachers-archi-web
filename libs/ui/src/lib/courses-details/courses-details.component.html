@@ -19,9 +19,9 @@
       <div class="inner-box">
         <p style="font-size: large; font-weight: bold">Nombre de groupes:</p>
         <div>
-          <p>CM: {{ ue?.groupesCM }}</p>
-          <p>TD: {{ ue?.groupesTD }}</p>
-          <p>TP: {{ ue?.groupesTP }}</p>
+          <p>CM: {{ nbCMRestant }} / {{ ue?.groupesCM }}</p>
+          <p>TD: {{ nbTDRestant }} / {{ ue?.groupesTD }}</p>
+          <p>TP: {{ nbTPRestant }} / {{ ue?.groupesTP }}</p>
         </div>
       </div>
     </div>
@@ -40,26 +40,35 @@
     <form nz-form [formGroup]="validateForm">
       <nz-form-item>
         <nz-form-label>Nombre de groupes de CM</nz-form-label>
-        <nz-form-control nzErrorTip="12 max ">
-          <nz-input-group nzPrefixIcon="cm">
-            <input formControlName="CM" nz-input [placeholder]="nbCMRestant" />
-          </nz-input-group>
+        <nz-form-control [nzErrorTip]="'max ' + nbCMRestant">
+          <nz-input-number
+            [nzDisabled]="disabledCM"
+            [nzMin]="1"
+            [nzMax]="nbCMRestant || 0"
+            formControlName="CM"
+          ></nz-input-number>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label>Nombre de groupes de TD</nz-form-label>
-        <nz-form-control nzErrorTip="12 max">
-          <nz-input-group nzPrefixIcon="cm">
-            <input formControlName="TD" nz-input [placeholder]="nbTDRestant" />
-          </nz-input-group>
+        <nz-form-control [nzErrorTip]="'max ' + nbTDRestant">
+          <nz-input-number
+            [nzDisabled]="disabledTD"
+            [nzMin]="1"
+            [nzMax]="nbTDRestant || 0"
+            formControlName="TD"
+          ></nz-input-number>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label>Nombre de groupes de TP</nz-form-label>
-        <nz-form-control [nzErrorTip]="'max' + ue?.groupesTP">
-          <nz-input-group nzPrefixIcon="cm">
-            <input formControlName="TP" nz-input [placeholder]="nbTPRestant" />
-          </nz-input-group>
+        <nz-form-control [nzErrorTip]="'max ' + nbTPRestant">
+          <nz-input-number
+            [nzDisabled]="disabledTP"
+            [nzMin]="1"
+            [nzMax]="nbTPRestant || 0"
+            formControlName="TP"
+          ></nz-input-number>
         </nz-form-control>
       </nz-form-item>
     </form>

@@ -17,10 +17,10 @@ export class TeachersComponent implements OnInit {
     teachersObs.subscribe((userData: User[]) => {
       this.teachersD = userData;
     });
-    const userObs = this.teachersService.login('dzqdzqdq', 'password');
+    /*  const userObs = this.teachersService.login('dzqdzqdq', 'password');
     userObs.subscribe(() => {
       console.log('hello');
-    });
+    }); */
   }
 
   public create() {

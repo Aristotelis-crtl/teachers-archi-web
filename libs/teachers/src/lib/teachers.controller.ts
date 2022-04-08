@@ -35,6 +35,12 @@ export class TeachersController {
       where: { uEId: { equals: id } },
     });
   }
+  @Get('enseigne/all/:id')
+  public async getAllEnseignementsFromTeacher(@Param('id') id: string) {
+    return await this.teachersService.getAllEnseignementsFromTeacher({
+      where: { id: { equals: id } },
+    });
+  }
 
   @Post('login')
   public async getUser(@Body() postData: loginProps) {

@@ -12,13 +12,6 @@ import {
   NzTableSortFn,
   NzTableSortOrder,
 } from 'ng-zorro-antd/table';
-import { BehaviorSubject, Observable } from 'rxjs';
-interface ItemData extends UE {
-  id: string;
-  name: string;
-  age: number;
-  address: string;
-}
 
 interface ueProps extends UE {
   Enseigne?: Enseigne[];
@@ -42,7 +35,6 @@ export class CoursesComponent implements OnInit {
   listOfColumns: ColumnItem[] = [];
   listOfData: UE[] = [];
   listOfDataFiltered: UE[] = [];
-  editCache: { [key: string]: { edit: boolean; data: ItemData } } = {};
   public ues: UE[] = [];
   filterName!: string;
 

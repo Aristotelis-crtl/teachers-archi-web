@@ -25,6 +25,9 @@ import { IconsProviderModule } from './icons-provider.module';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { HeaderComponent } from './header/header.component';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { TeachersUesComponent } from './teachers-ues/teachers-ues.component';
+import { TeacherProfileComponent } from './teacher-profile/teacher-profile.component';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 
 @NgModule({
   imports: [
@@ -45,12 +48,15 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     IconsProviderModule,
     NzInputNumberModule,
     NzInputModule,
+    NzAvatarModule,
   ],
   declarations: [
     TeachersComponent,
     CoursesComponent,
     CoursesDetailsComponent,
     HeaderComponent,
+    TeachersUesComponent,
+    TeacherProfileComponent,
   ],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
   exports: [
@@ -58,6 +64,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     CoursesComponent,
     CoursesDetailsComponent,
     HeaderComponent,
+    TeachersUesComponent,
+    TeacherProfileComponent,
   ],
 })
 export class UiModule {}

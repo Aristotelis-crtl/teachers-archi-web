@@ -1,0 +1,60 @@
+<nz-table
+  #editRowTable
+  [nzData]="listOfData"
+  [nzFrontPagination]="true"
+  class="overflow-scroll"
+  nzFixed
+>
+  <thead>
+    <tr>
+      <th
+        *ngFor="let column of listOfColumns"
+        [nzSortOrder]="column.sortOrder"
+        [nzSortFn]="column.sortFn"
+        [nzSortDirections]="column.sortDirections"
+        [nzFilterMultiple]="column.filterMultiple"
+        [nzFilters]="column.listOfFilter"
+        [nzFilterFn]="column.filterFn"
+        [nzShowFilter]="column.nzShowFilter ? false : true"
+        [nzShowSort]="column.nzShowFilter ? false : true"
+      >
+        {{ column.name }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ue of editRowTable.data">
+      <td>{{ ue.ue.intitule }}</td>
+      <td nzAlign="center">
+        <span
+          >{{ ue.groupesCM || 0 }}
+          <nz-avatar
+            nzIcon="usergroup-add"
+            style="background-color: powderblue"
+          ></nz-avatar
+        ></span>
+        <span> {{ ue.heuresCM }} <nz-avatar nzText="UC"></nz-avatar></span>
+      </td>
+      <td nzAlign="center">
+        <span
+          >{{ ue.groupesTP || 0 }}
+          <nz-avatar
+            nzIcon="usergroup-add"
+            style="background-color: powderblue"
+          ></nz-avatar
+        ></span>
+        <span> {{ ue.heuresTP }} <nz-avatar nzText="UC"></nz-avatar></span>
+      </td>
+      <td nzAlign="center">
+        <span
+          >{{ ue.groupesTD || 0 }}
+          <nz-avatar
+            nzIcon="usergroup-add"
+            style="background-color: powderblue"
+          ></nz-avatar
+        ></span>
+        <span> {{ ue.heuresTD }} <nz-avatar nzText="UC"></nz-avatar></span>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

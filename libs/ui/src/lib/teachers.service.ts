@@ -7,6 +7,14 @@ import { Router } from '@angular/router';
 interface ueProps extends UE {
   Enseigne?: Enseigne[];
 }
+export type enseignementTeacherProps = User & {
+  Enseigne: (Enseigne & {
+    ue: {
+      intitule: string;
+    };
+  })[];
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -40,14 +48,17 @@ export class TeachersService {
   public getNombreHeure(
     statusEnseignant: Status,
     nombreHeure: number,
+    nombreGroupe: number,
     typeUe: 'CM' | 'TP' | 'TD'
   ): number {
     // TD/TP = 1 UC (ATER = 0.75), CM = 1.5 UC
     let res = 0;
     if (typeUe == 'TD' || typeUe === 'TP') {
-      statusEnseignant === 'ATER' ? (res = 0.75 * nombreHeure) : nombreHeure;
+      statusEnseignant === 'ATER'
+        ? (res = 0.75 * nombreHeure * nombreGroupe)
+        : (res = nombreHeure * nombreGroupe);
       return res;
-    } else return 1.5 * nombreHeure;
+    } else return 1.5 * nombreHeure * nombreGroupe;
   }
   login(username: string, password: string) {
     return this.http
@@ -77,6 +88,14 @@ export class TeachersService {
 
   public getCourse(id: string): Observable<ueProps> {
     return this.http.get<ueProps>(`${this.API_URL}/teachers/courses/${id}`);
+  }
+
+  public getAllEnseignementFromTeacher(
+    id: string
+  ): Observable<enseignementTeacherProps> {
+    return this.http.get<enseignementTeacherProps>(
+      `${this.API_URL}/teachers/enseigne/all/${id}`
+    );
   }
 
   //Enseignement controllers

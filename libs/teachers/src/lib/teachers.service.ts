@@ -42,6 +42,26 @@ export class TeachersService {
     const { where } = params;
     return prisma.uE.findMany({ where });
   }
+
+  public async getAllEnseignementsFromTeacher(params: {
+    where?: Prisma.UserWhereInput;
+  }): Promise<
+    User & {
+      Enseigne: (Enseigne & {
+        ue: {
+          intitule: string;
+        };
+      })[];
+    }
+  > {
+    const { where } = params;
+    return await prisma.user.findFirst({
+      where,
+      include: {
+        Enseigne: { include: { ue: { select: { intitule: true } } } },
+      },
+    });
+  }
   public getCourse(params: { where: Prisma.UEWhereInput }): Promise<UE> {
     const { where } = params;
     return prisma.uE.findFirst({ where, include: { Enseigne: true } });

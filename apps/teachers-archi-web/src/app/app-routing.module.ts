@@ -14,6 +14,13 @@ const routes: Routes = [
       import('./pages/profile/profile.module').then((m) => m.ProfileModule),
   },
   {
+    path: 'ues',
+    loadChildren: () =>
+      import('./pages/profile-details/profile-details.module').then(
+        (m) => m.ProfileDetailsModule
+      ),
+  },
+  {
     path: 'cours',
     loadChildren: () =>
       import('./pages/courses/courses.module').then((m) => m.CoursesModule),

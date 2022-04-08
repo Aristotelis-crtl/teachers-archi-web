@@ -23,6 +23,7 @@ model User {
   lastName  String
   username  String     @unique
   password  String
+  minimumUC Int
   status    Status
   Enseigne  Enseigne[]
 }

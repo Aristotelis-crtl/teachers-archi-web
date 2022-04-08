@@ -72,9 +72,7 @@ export class CoursesDetailsComponent implements OnInit {
   ngOnDestroy() {
     this._isDead$.unsubscribe();
   }
-  ngAfterInit(): void {
-    this.ue && console.log('dqzq', this.ue);
-  }
+
   getCourse(): void {
     const id = this.route.snapshot.paramMap.get('id') || '';
     this.teachersService
@@ -105,33 +103,37 @@ export class CoursesDetailsComponent implements OnInit {
         control.updateValueAndValidity({ onlySelf: true });
       } else {
         const formData = this.validateForm.value;
-        this.teachersService
-          .addEnseignement(
-            this.teachersService.userValue?.id || '',
-            this.ue?.id || '',
-            this.teachersService.getNombreHeure(
-              this.teachersService.userValue?.status || 'ATER',
-              this.ue?.heuresCM || 0,
-              'CM'
-            ),
-            this.teachersService.getNombreHeure(
-              this.teachersService.userValue?.status || 'ATER',
-              this.ue?.heuresTD || 0,
-              'TD'
-            ),
-            this.teachersService.getNombreHeure(
-              this.teachersService.userValue?.status || 'ATER',
-              this.ue?.heuresTP || 0,
-              'TP'
-            ),
-            parseInt(formData.CM),
-            parseInt(formData.TD),
-            parseInt(formData.TP)
-          )
-          .subscribe((response) => {
-            console.log(response);
-          });
-        console.log('form submitted:', this.validateForm.value);
+
+        this.isVisible &&
+          this.teachersService
+            .addEnseignement(
+              this.teachersService.userValue?.id || '',
+              this.ue?.id || '',
+              this.teachersService.getNombreHeure(
+                this.teachersService.userValue?.status || 'ATER',
+                this.ue?.heuresCM || 0,
+                formData.CM,
+                'CM'
+              ),
+              this.teachersService.getNombreHeure(
+                this.teachersService.userValue?.status || 'ATER',
+                this.ue?.heuresTD || 0,
+                formData.TD,
+                'TD'
+              ),
+              this.teachersService.getNombreHeure(
+                this.teachersService.userValue?.status || 'ATER',
+                this.ue?.heuresTP || 0,
+                formData.TP,
+                'TP'
+              ),
+              parseInt(formData.CM),
+              parseInt(formData.TD),
+              parseInt(formData.TP)
+            )
+            .subscribe((response) => {
+              console.log('response: ', response);
+            });
 
         this.isVisible = false;
         this.validateForm.reset();

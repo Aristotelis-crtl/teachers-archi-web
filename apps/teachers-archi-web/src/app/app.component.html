@@ -9,10 +9,7 @@
   >
     <div class="sidebar-logo">
       <a routerLink="/">
-        <img
-          src="https://personnels.u-picardie.fr/medias/photo/3logos_1448370362284-png?ID_FICHE=116602"
-          alt="logo"
-        />
+        <img [src]="imageSrc" alt="logo" />
         <h1>UPJV</h1>
       </a>
     </div>
@@ -28,20 +25,17 @@
             <a routerLink="/welcome">Welcome</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/profil">Profil</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
             <a routerLink="/cours">Cours</a>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Profil" nzIcon="form">
+      <li nz-submenu nzOpen nzTitle="Profil" nzIcon="user">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/profil">Mon compte</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/profil/ues">Mes ues</a>
+            <a routerLink="/ues">Mes ues</a>
           </li>
         </ul>
       </li>

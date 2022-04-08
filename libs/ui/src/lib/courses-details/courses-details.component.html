@@ -44,6 +44,7 @@
           <nz-input-number
             [nzDisabled]="disabledCM"
             [nzMin]="1"
+            [nzStep]="0.5"
             [nzMax]="nbCMRestant || 0"
             formControlName="CM"
           ></nz-input-number>
@@ -55,6 +56,7 @@
           <nz-input-number
             [nzDisabled]="disabledTD"
             [nzMin]="1"
+            [nzStep]="0.5"
             [nzMax]="nbTDRestant || 0"
             formControlName="TD"
           ></nz-input-number>
@@ -66,6 +68,7 @@
           <nz-input-number
             [nzDisabled]="disabledTP"
             [nzMin]="1"
+            [nzStep]="0.5"
             [nzMax]="nbTPRestant || 0"
             formControlName="TP"
           ></nz-input-number>

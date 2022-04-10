@@ -29,6 +29,7 @@ import { TeachersUesComponent } from './teachers-ues/teachers-ues.component';
 import { TeacherProfileComponent } from './teacher-profile/teacher-profile.component';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { UesRestantesComponent } from './ues-restantes/ues-restantes.component';
+import { TeachersTableComponent } from './teachers-table/teachers-table.component';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import { UesRestantesComponent } from './ues-restantes/ues-restantes.component';
     TeachersUesComponent,
     TeacherProfileComponent,
     UesRestantesComponent,
+    TeachersTableComponent,
   ],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
   exports: [
@@ -69,6 +71,7 @@ import { UesRestantesComponent } from './ues-restantes/ues-restantes.component';
     TeachersUesComponent,
     TeacherProfileComponent,
     UesRestantesComponent,
+    TeachersTableComponent,
   ],
 })
 export class UiModule {}

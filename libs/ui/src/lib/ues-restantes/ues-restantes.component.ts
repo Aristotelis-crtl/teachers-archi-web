@@ -50,10 +50,10 @@ export class UesRestantesComponent implements OnInit {
           sortFn: (a: ueProps, b: ueProps) =>
             a.intitule.localeCompare(b.intitule),
           sortDirections: ['ascend', 'descend', null],
-          filterMultiple: true,
+          filterMultiple: false,
           listOfFilter: [],
-          filterFn: (list: string[], item: ueProps) =>
-            list.some((name) => item.intitule.indexOf(name) !== -1),
+          filterFn: null,
+          nzShowFilter: true,
         },
         {
           name: 'Parcours',

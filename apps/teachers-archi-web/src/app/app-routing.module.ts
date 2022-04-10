@@ -37,6 +37,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/ues-left/ues-left.module').then((m) => m.UesLeftModule),
   },
+  {
+    path: 'gestion',
+    loadChildren: () =>
+      import('./pages/admin-teachers/admin-teachers.module').then(
+        (m) => m.AdminTeachersModule
+      ),
+  },
 ];
 
 @NgModule({

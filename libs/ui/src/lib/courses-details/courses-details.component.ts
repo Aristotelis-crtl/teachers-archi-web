@@ -17,9 +17,9 @@ export class CoursesDetailsComponent implements OnInit {
   public ue: ueProps | null = null;
   public enseigne: Enseigne | null = null;
   //handle numbers of courses avaible
-  public nbCMRestant: number | undefined | null = 0;
-  public nbTPRestant: number | undefined | null = 0;
-  public nbTDRestant: number | undefined | null = 0;
+  public nbCMRestant = 0;
+  public nbTPRestant = 0;
+  public nbTDRestant = 0;
   disabledTD = false;
   disabledTP = false;
   disabledCM = false;
@@ -29,6 +29,8 @@ export class CoursesDetailsComponent implements OnInit {
   //public userId = ''
   validateForm!: FormGroup;
   isVisible = false;
+  errorVisible = false;
+  errorMessage = '';
   constructor(
     public teachersService: TeachersService,
     private route: ActivatedRoute,
@@ -36,10 +38,19 @@ export class CoursesDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.getCourse();
+    this.getEnseignement();
+
+    this.getCourse();
+    this.validateForm = this.fb.group({
+      CM: [null, { disabled: true }, [Validators.required]],
+      TD: [null, { disabled: true }, [Validators.required]],
+      TP: [null, { disabled: true }, [Validators.required]],
+    });
+  }
+
+  getCourse(): void {
     const id = this.route.snapshot.paramMap.get('id') || '';
-    const obs = this.teachersService.getCourse(id);
-    obs.subscribe({
+    this.teachersService.getCourse(id).subscribe({
       next: (x) => {
         this.ue = x;
         this.nbCMRestant =
@@ -54,37 +65,21 @@ export class CoursesDetailsComponent implements OnInit {
         this.disabledCM = this.nbCMRestant <= 0;
         this.disabledTD = this.nbTDRestant <= 0;
         this.disabledTP = this.nbTPRestant <= 0;
-
-        console.log('this', this.nbTDRestant);
       },
-      complete: () => {
-        console.log('done', this.ue);
-      },
+      complete: () => null,
     });
-    this.getEnseignement();
-    this.validateForm = this.fb.group({
-      CM: [null, { disabled: true }, [Validators.required]],
-      TD: [null, { disabled: true }, [Validators.required]],
-      TP: [null, { disabled: true }, [Validators.required]],
-    });
-  }
-
-  ngOnDestroy() {
-    this._isDead$.unsubscribe();
-  }
-
-  getCourse(): void {
-    const id = this.route.snapshot.paramMap.get('id') || '';
-    this.teachersService
-      .getCourse(id)
-      .subscribe((ue: ueProps) => (this.ue = ue));
-    console.log(this.ue);
   }
 
   getEnseignement(): void {
+    const id = this.route.snapshot.paramMap.get('id') || '';
     this.teachersService
-      .getEnseignementFromTeacher(this.teachersService.userValue?.id || '')
-      .subscribe((enseigne: Enseigne) => (this.enseigne = enseigne));
+      .getEnseignementFromTeacher(
+        `${this.teachersService.userValue?.id}-${id}` || ''
+      )
+      .subscribe((enseigne: Enseigne) => {
+        this.enseigne = enseigne;
+        console.log('enseigne:', this.enseigne);
+      });
   }
   public showModal(): void {
     this.isVisible = true;
@@ -103,12 +98,36 @@ export class CoursesDetailsComponent implements OnInit {
         control.updateValueAndValidity({ onlySelf: true });
       } else {
         const formData = this.validateForm.value;
-
-        this.isVisible &&
+        const nbGroupeCM =
+          formData.CM === null || formData.CM === '' ? null : formData.CM;
+        const nbGroupeTP =
+          formData.TP === null || formData.TP === '' ? null : formData.TP;
+        const nbGroupeTD =
+          formData.TD === null || formData.TD === '' ? null : formData.TD;
+        if (nbGroupeCM > 0 && nbGroupeCM) {
+          if (
+            (this.nbTDRestant > 0 &&
+              nbGroupeTD === null &&
+              !this.enseigne?.groupesTD) ||
+            (this.nbTPRestant > 0 &&
+              nbGroupeTP === null &&
+              !this.enseigne?.groupesTP)
+          ) {
+            this.errorVisible = true;
+            this.errorMessage =
+              'Veuillez choisir un groupe de TD et TP si vous êtes responsables de CM.';
+          } else {
+            this.errorVisible = false;
+          }
+        }
+        console.log('this', this.route.snapshot.paramMap.get('id'));
+        !this.errorVisible &&
+          this.isVisible &&
           this.teachersService
             .addEnseignement(
               this.teachersService.userValue?.id || '',
               this.ue?.id || '',
+              this.enseigne?.id || '',
               this.teachersService.getNombreHeure(
                 this.teachersService.userValue?.status || 'ATER',
                 this.ue?.heuresCM || 0,
@@ -127,15 +146,16 @@ export class CoursesDetailsComponent implements OnInit {
                 formData.TP,
                 'TP'
               ),
-              parseInt(formData.CM),
-              parseInt(formData.TD),
-              parseInt(formData.TP)
+              nbGroupeCM === null ? 0 : nbGroupeCM,
+              nbGroupeTD === null ? 0 : nbGroupeTD,
+              nbGroupeTP === null ? 0 : nbGroupeTP
             )
-            .subscribe((response) => {
-              console.log('response: ', response);
+            .subscribe(() => {
+              this.getCourse();
+              this.getEnseignement();
             });
 
-        this.isVisible = false;
+        this.isVisible = this.errorVisible;
         this.validateForm.reset();
       }
     });

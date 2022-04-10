@@ -31,8 +31,13 @@ export class TeachersController {
   }
   @Get('enseigne/:id')
   public async getEnseignementFromTeacher(@Param('id') id: string) {
+    const userId = id.split('-')[0];
+    const ueId = id.split('-')[1];
     return this.teachersService.getEnseignementFromTeacher({
-      where: { uEId: { equals: id } },
+      where: {
+        userId: { equals: userId },
+        uEId: { equals: ueId },
+      },
     });
   }
   @Get('enseigne/all/:id')
@@ -52,13 +57,15 @@ export class TeachersController {
 
   @Post()
   public async createUser(@Body() postData: UserModel): Promise<UserModel> {
-    const { firstName, lastName, username, password, status } = postData;
+    const { firstName, lastName, username, password, status, minimumUC } =
+      postData;
     return this.teachersService.createUser({
       firstName,
       lastName,
       username,
       password,
       status,
+      minimumUC,
     });
   }
   @Post('enseigne')
@@ -72,6 +79,7 @@ export class TeachersController {
       groupesTP,
       userId,
       uEId,
+      id,
     } = postData;
     return this.teachersService.addEnseignement({
       heuresCM,
@@ -80,8 +88,9 @@ export class TeachersController {
       groupesCM,
       groupesTD,
       groupesTP,
-      ue: { connect: { id: uEId } },
-      user: { connect: { id: userId } },
+      id,
+      userId: userId,
+      uEId: uEId,
     });
   }
 }

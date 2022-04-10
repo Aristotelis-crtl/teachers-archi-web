@@ -1,17 +1,12 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Enseigne, UE } from '@prisma/client';
-import { TeachersService } from '../teachers.service';
 import {
   NzTableFilterFn,
   NzTableFilterList,
   NzTableSortFn,
   NzTableSortOrder,
 } from 'ng-zorro-antd/table';
+import { TeachersService } from '../teachers.service';
 
 interface ueProps extends UE {
   Enseigne?: Enseigne[];
@@ -27,46 +22,27 @@ interface ColumnItem {
   nzShowFilter?: boolean;
 }
 @Component({
-  selector: 'teachers-archi-web-courses',
-  templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.scss'],
+  selector: 'teachers-archi-web-ues-restantes',
+  templateUrl: './ues-restantes.component.html',
+  styleUrls: ['./ues-restantes.component.scss'],
 })
-export class CoursesComponent implements OnInit {
+export class UesRestantesComponent implements OnInit {
   listOfColumns: ColumnItem[] = [];
-  listOfData: UE[] = [];
-  listOfDataFiltered: UE[] = [];
-  public ues: UE[] = [];
-  filterName!: string;
-  expandSet = new Set<string>();
-  onExpandChange(id: string, checked: boolean): void {
-    if (checked) {
-      this.expandSet.add(id);
-    } else {
-      this.expandSet.delete(id);
-    }
-  }
-
-  updateFilter() {
-    this.filterName = (<HTMLInputElement>(
-      document.getElementById('filterName')
-    )).value;
-    this.filterName !== ''
-      ? (this.listOfDataFiltered = this.listOfData.filter((data) =>
-          data.intitule.toLowerCase().includes(this.filterName.toLowerCase())
-        ))
-      : (this.listOfDataFiltered = this.listOfData);
-  }
-  constructor(public teachersService: TeachersService) {}
-
-  ngOnInit(): void {
-    this.getUes();
-  }
+  listOfData: ueProps[] = [];
 
   getUes() {
     const uesObs = this.teachersService.getCourses();
-    uesObs.subscribe((uesData: UE[]) => {
+    uesObs.subscribe((uesData: ueProps[]) => {
       this.listOfData = uesData;
-      this.listOfDataFiltered = this.listOfData;
+      this.listOfData = this.listOfData.filter(
+        (ue) =>
+          ue.groupesCM !==
+            ue.Enseigne?.reduce((x, acc) => x + (acc.groupesCM || 0), 0) ||
+          ue.groupesTD !==
+            ue.Enseigne?.reduce((x, acc) => x + (acc.groupesTD || 0), 0) ||
+          ue.groupesTD !==
+            ue.Enseigne?.reduce((x, acc) => x + (acc.groupesTD || 0), 0)
+      );
       this.listOfColumns = [
         {
           name: 'Intitule',
@@ -104,19 +80,12 @@ export class CoursesComponent implements OnInit {
           filterFn: (list: string[], item: ueProps) =>
             list.some((name) => item.intitule.indexOf(name) !== -1),
         },
-        {
-          name: 'Actions',
-
-          sortOrder: null,
-          sortFn: null,
-          sortDirections: [null],
-          filterMultiple: false,
-          listOfFilter: [],
-          filterFn: null,
-          nzShowFilter: true,
-        },
       ];
     });
   }
-  // this.uesFormatted = this.ues ?this.ues?.map((ue, i) => {}) : []
+  constructor(public teachersService: TeachersService) {}
+
+  ngOnInit(): void {
+    this.getUes();
+  }
 }

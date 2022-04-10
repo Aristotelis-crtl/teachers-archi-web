@@ -108,6 +108,7 @@ export class TeachersService {
   addEnseignement(
     userId: string,
     uEId: string,
+    id: string,
     heuresCM?: number,
     heuresTD?: number,
     heuresTP?: number,
@@ -119,6 +120,7 @@ export class TeachersService {
       .post<Enseigne>(`${this.API_URL}/teachers/enseigne`, {
         userId,
         uEId,
+        id,
         heuresCM,
         heuresTD,
         heuresTP,

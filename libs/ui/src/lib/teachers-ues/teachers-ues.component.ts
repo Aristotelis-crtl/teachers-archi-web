@@ -40,9 +40,7 @@ export class TeachersUesComponent implements OnInit {
   getEnseignements(id: string) {
     const uesObs = this.teachersService.getAllEnseignementFromTeacher(id);
     uesObs.subscribe((enseignementData: enseignementTeacherProps) => {
-      //  this.listOfDataFiltered = enseignementData;
       this.listOfData = enseignementData.Enseigne;
-      console.log('this.', this.listOfData, 'dqz', enseignementData);
       this.listOfColumns = [
         {
           name: 'Intitule',

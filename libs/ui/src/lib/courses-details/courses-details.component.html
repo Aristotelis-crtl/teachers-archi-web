@@ -74,6 +74,7 @@
           ></nz-input-number>
         </nz-form-control>
       </nz-form-item>
+      <p *ngIf="errorVisible">{{ errorMessage }}</p>
     </form>
   </ng-container>
 </nz-modal>

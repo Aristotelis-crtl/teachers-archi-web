@@ -32,6 +32,11 @@ const routes: Routes = [
         (m) => m.CourseDetailsModule
       ),
   },
+  {
+    path: 'uesRestantes',
+    loadChildren: () =>
+      import('./pages/ues-left/ues-left.module').then((m) => m.UesLeftModule),
+  },
 ];
 
 @NgModule({

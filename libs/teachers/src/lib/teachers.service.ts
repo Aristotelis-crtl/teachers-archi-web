@@ -25,15 +25,33 @@ export class TeachersService {
   public createUser(data: Prisma.UserCreateInput): Promise<User> {
     return prisma.user.create({ data });
   }
-  public addEnseignement(data: Prisma.EnseigneCreateInput): Promise<Enseigne> {
-    return prisma.enseigne.create({ data });
+  public addEnseignement(data: Enseigne): Promise<Enseigne> {
+    const { id } = data;
+    delete data.id;
+    return prisma.enseigne.upsert({
+      where: { id: id || '624ac14b8c3d534157a5ca42' },
+      update: {
+        groupesCM: { increment: data.groupesCM || 0 },
+        groupesTD: { increment: data.groupesTD || 0 },
+        groupesTP: { increment: data.groupesTP || 0 },
+        heuresCM: { increment: data.heuresCM || 0 },
+        heuresTD: { increment: data.heuresTD || 0 },
+        heuresTP: { increment: data.heuresTP || 0 },
+      },
+      create: { ...data },
+    });
   }
 
-  public async getCourses(params: {
-    where?: Prisma.UEWhereInput;
-  }): Promise<ueProps[]> {
+  public async getCourses(params: { where?: Prisma.UEWhereInput }) {
     const { where } = params;
-    return await prisma.uE.findMany({ where, include: { Enseigne: true } });
+    return await prisma.uE.findMany({
+      where,
+      include: {
+        Enseigne: true,
+      },
+      /*       include: {Enseigne: {include: {user: {select: {firstName: true}}}}}
+       */
+    });
   }
 
   public getEnseignements(params: {

@@ -1,6 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["mongoDb"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -23,7 +22,7 @@ model User {
   lastName  String
   username  String     @unique
   password  String
-  minimumUC Int
+  minimumUC Int?
   status    Status
   Enseigne  Enseigne[]
 }
@@ -32,12 +31,12 @@ model Enseigne {
   id        String @id @default(auto()) @map("_id") @db.ObjectId
   userId    String @db.ObjectId
   uEId      String @db.ObjectId
-  heuresCM  Float?
-  heuresTD  Float?
-  heuresTP  Float?
-  groupesCM Float?
-  groupesTD Float?
-  groupesTP Float?
+  heuresCM  Float  @default(0)
+  heuresTD  Float  @default(0)
+  heuresTP  Float  @default(0)
+  groupesCM Float  @default(0)
+  groupesTD Float  @default(0)
+  groupesTP Float  @default(0)
   ue        UE     @relation(fields: [uEId], references: [id])
   user      User   @relation(fields: [userId], references: [id])
 }

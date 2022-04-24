@@ -1,0 +1,108 @@
+<nz-card nzType="inner" nzTitle="Professeurs">
+  <div style="display: flex; justify-content: space-between">
+    <p>Nombre de professeurs inscrits:</p>
+    <p>{{ usersLength || '' }}</p>
+  </div>
+  <div>
+    <a (click)="showModal()">Ajouter un professeur</a>
+  </div>
+</nz-card>
+<div #containerRef>
+  <ngx-charts-advanced-pie-chart
+    [view]="[containerRef.offsetWidth, 0]"
+    [scheme]="colorScheme"
+    [results]="pieData"
+    [gradient]="gradient"
+    (select)="onSelect($event)"
+    label="Nombre de groupes restants"
+  >
+  </ngx-charts-advanced-pie-chart>
+</div>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Ajouter un utilisateur"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-container *nzModalContent>
+    <form
+      nz-form
+      [formGroup]="validateForm"
+      class="login-form"
+      style="font-weight: bold"
+    >
+      <div nz-row>
+        <div nz-col nzSpan="8"><p>Prénom</p></div>
+        <div nz-col nzSpan="8" nzOffset="8">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Le prénom est obligatoire">
+              <input type="text" nz-input formControlName="firstName" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8"><p>Nom:</p></div>
+        <div nz-col nzSpan="8" nzOffset="8">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Le nom est obligatoire">
+              <input type="text" nz-input formControlName="lastName" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8"><p>Nom d'utilisateur:</p></div>
+        <div nz-col nzSpan="8" nzOffset="8">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Le nom d'utilisateur est obligatoire">
+              <input type="text" nz-input formControlName="username" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8"><p>Mot de passe:</p></div>
+        <div nz-col nzSpan="8" nzOffset="8">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Le mot de passe est obligatoire">
+              <input type="text" nz-input formControlName="password" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8"><p>Status:</p></div>
+        <div nz-col nzSpan="8" nzOffset="8">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Le status est obligatoire">
+              <nz-select id="status" formControlName="status">
+                <nz-option nzValue="EC" nzLabel="EC"></nz-option>
+                <nz-option nzValue="PRAG" nzLabel="PRAG"></nz-option>
+                <nz-option nzValue="VAC" nzLabel="VAC"></nz-option>
+                <nz-option nzValue="CDE" nzLabel="CDE"></nz-option>
+                <nz-option nzValue="ATER" nzLabel="ATER"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8"><p>Nombre d'UC minimum:</p></div>
+        <div nz-col nzSpan="8" nzOffset="8">
+          <nz-form-item>
+            <nz-form-control
+              nzErrorTip="Veuillez entrer votre nom d'utilisateur"
+            >
+              <nz-input-number
+                [nzMin]="1"
+                formControlName="minimumUC"
+                style="width: 100%"
+              ></nz-input-number>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</nz-modal>

@@ -4,7 +4,7 @@ import { Enseigne, Prisma, UE, User, Status } from '@prisma/client';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 //const prisma = new PrismaClient()
-interface ueProps extends UE {
+export interface ueProps extends UE {
   Enseigne?: Enseigne[];
 }
 export type enseignementTeacherProps = User & {
@@ -99,6 +99,9 @@ export class TeachersService {
 
   public getTeacher(id: string): Observable<User> {
     return this.http.get<User>(`${this.API_URL}/teachers/${id}`);
+  }
+  public removeTeacher(id: string): Observable<User> {
+    return this.http.delete<User>(`${this.API_URL}/teachers/remove/${id}`);
   }
 
   public getAllEnseignementFromTeacher(

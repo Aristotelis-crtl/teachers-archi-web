@@ -13,7 +13,7 @@ export class AdminEditTeacherComponent implements OnInit {
   public user!: User | null;
   validateForm!: FormGroup;
 
-  editMode = true;
+  editMode = false;
 
   constructor(
     public teachersService: TeachersService,
@@ -28,7 +28,7 @@ export class AdminEditTeacherComponent implements OnInit {
       this.user = data;
     });
     this.validateForm = this.fb.group({
-      userName: [undefined],
+      username: [undefined],
       password: [undefined],
       firstName: [undefined],
       lastName: [undefined],

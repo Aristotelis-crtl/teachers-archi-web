@@ -50,6 +50,7 @@ export class TeachersUesComponent implements OnInit {
           filterMultiple: true,
           listOfFilter: [],
           filterFn: null,
+          nzShowFilter: true,
         },
         {
           name: 'CM',
@@ -59,6 +60,7 @@ export class TeachersUesComponent implements OnInit {
           filterMultiple: true,
           listOfFilter: [],
           filterFn: null,
+          nzShowFilter: true,
         },
         {
           name: 'TP',
@@ -80,6 +82,7 @@ export class TeachersUesComponent implements OnInit {
           filterMultiple: true,
           listOfFilter: [],
           filterFn: null,
+          nzShowFilter: true,
         },
       ];
     });

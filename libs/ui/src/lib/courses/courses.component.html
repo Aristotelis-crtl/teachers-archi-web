@@ -16,7 +16,6 @@
 >
   <thead>
     <tr>
-      <th></th>
       <th
         *ngFor="let column of listOfColumns"
         [nzSortOrder]="column.sortOrder"
@@ -35,19 +34,12 @@
   <tbody>
     <ng-container *ngFor="let ue of editRowTable.data">
       <tr>
-        <td
-          [nzExpand]="expandSet.has(ue.id)"
-          (nzExpandChange)="onExpandChange(ue.id, $event)"
-        ></td>
         <td>{{ ue.intitule }}</td>
         <td>{{ ue.formation }}</td>
         <td>{{ ue.status }}</td>
         <td>
           <a routerLink="{{ ue.id }}">Voir</a>
         </td>
-      </tr>
-      <tr [nzExpand]="expandSet.has(ue.id)">
-        <span>{{ ue.semestre }}</span>
       </tr>
     </ng-container>
   </tbody>

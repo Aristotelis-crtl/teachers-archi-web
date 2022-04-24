@@ -73,6 +73,7 @@ export class CoursesComponent implements OnInit {
           listOfFilter: [],
           filterFn: (list: string[], item: ueProps) =>
             list.some((name) => item.intitule.indexOf(name) !== -1),
+          nzShowFilter: true,
         },
         {
           name: 'Parcours',
@@ -98,6 +99,7 @@ export class CoursesComponent implements OnInit {
           listOfFilter: [],
           filterFn: (list: string[], item: ueProps) =>
             list.some((name) => item.intitule.indexOf(name) !== -1),
+          nzShowFilter: true,
         },
         {
           name: 'Actions',

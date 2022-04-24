@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { TeachersService } from './teachers.service';
 import { Enseigne, User as UserModel } from '@prisma/client';
 
@@ -57,6 +65,12 @@ export class TeachersController {
   @Get(':id')
   public async getTeacher(@Param('id') id: string) {
     return this.teachersService.getTeacher({
+      where: { id: id },
+    });
+  }
+  @Delete('remove/:id')
+  public async removeTeacher(@Param('id') id: string) {
+    return this.teachersService.removeTeacher({
       where: { id: id },
     });
   }

@@ -18,6 +18,14 @@ export class TeachersService {
       where,
     });
   }
+  public removeTeacher(params: {
+    where?: Prisma.UserWhereUniqueInput;
+  }): Promise<User> {
+    const { where } = params;
+    return prisma.user.delete({
+      where,
+    });
+  }
   public createUser(data: Prisma.UserCreateInput): Promise<User> {
     return prisma.user.create({ data });
   }

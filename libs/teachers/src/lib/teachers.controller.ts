@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put } from '@nestjs/common';
 import { TeachersService } from './teachers.service';
 import { Enseigne, User as UserModel } from '@prisma/client';
 
@@ -54,6 +54,12 @@ export class TeachersController {
       where: { username: username },
     });
   }
+  @Get(':id')
+  public async getTeacher(@Param('id') id: string) {
+    return this.teachersService.getTeacher({
+      where: { id: id },
+    });
+  }
 
   @Post()
   public async createUser(@Body() postData: UserModel): Promise<UserModel> {
@@ -66,6 +72,18 @@ export class TeachersController {
       password,
       status,
       minimumUC,
+    });
+  }
+  @Put('update/:id')
+  public async updateUser(
+    @Body() postData: UserModel,
+    @Param('id') id: string
+  ): Promise<UserModel> {
+    const { firstName, lastName, username, password, status, minimumUC } =
+      postData;
+    return this.teachersService.updateUser({
+      where: { id: id },
+      data: { firstName, lastName, username, password, status, minimumUC },
     });
   }
   @Post('enseigne')

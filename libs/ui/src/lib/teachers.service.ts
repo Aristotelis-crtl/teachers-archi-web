@@ -37,6 +37,13 @@ export class TeachersService {
     return this.http.post<User>(`${this.API_URL}/teachers`, data);
   }
 
+  public updateUser(
+    data: Prisma.UserUpdateInput,
+    id: string
+  ): Observable<User> {
+    return this.http.put<User>(`${this.API_URL}/teachers/update/${id}`, data);
+  }
+
   public getTeachers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.API_URL}/teachers`);
   }
@@ -88,6 +95,10 @@ export class TeachersService {
 
   public getCourse(id: string): Observable<ueProps> {
     return this.http.get<ueProps>(`${this.API_URL}/teachers/courses/${id}`);
+  }
+
+  public getTeacher(id: string): Observable<User> {
+    return this.http.get<User>(`${this.API_URL}/teachers/${id}`);
   }
 
   public getAllEnseignementFromTeacher(

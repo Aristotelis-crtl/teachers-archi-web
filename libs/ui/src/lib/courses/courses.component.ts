@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Enseigne, UE } from '@prisma/client';
 import { TeachersService } from '../teachers.service';
 import {

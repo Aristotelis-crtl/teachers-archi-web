@@ -44,6 +44,13 @@ const routes: Routes = [
         (m) => m.AdminTeachersModule
       ),
   },
+  {
+    path: 'gestion/:id',
+    loadChildren: () =>
+      import('./pages/admin-edit/admin-edit.module').then(
+        (m) => m.AdminEditModule
+      ),
+  },
 ];
 
 @NgModule({

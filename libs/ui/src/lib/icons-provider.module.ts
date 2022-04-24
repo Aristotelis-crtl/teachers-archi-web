@@ -7,7 +7,6 @@ import {
   FormOutline,
   DashboardOutline,
   CompassOutline,
-  CodeOutline,
 } from '@ant-design/icons-angular/icons';
 
 const icons = [

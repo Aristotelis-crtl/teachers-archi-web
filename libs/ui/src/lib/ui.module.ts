@@ -30,6 +30,10 @@ import { TeacherProfileComponent } from './teacher-profile/teacher-profile.compo
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { UesRestantesComponent } from './ues-restantes/ues-restantes.component';
 import { TeachersTableComponent } from './teachers-table/teachers-table.component';
+import { AdminEditTeacherComponent } from './admin-edit-teacher/admin-edit-teacher.component';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 @NgModule({
   imports: [
@@ -51,6 +55,9 @@ import { TeachersTableComponent } from './teachers-table/teachers-table.componen
     NzInputNumberModule,
     NzInputModule,
     NzAvatarModule,
+    NzSelectModule,
+    NzMessageModule,
+    NzPopconfirmModule,
   ],
   declarations: [
     TeachersComponent,
@@ -61,6 +68,7 @@ import { TeachersTableComponent } from './teachers-table/teachers-table.componen
     TeacherProfileComponent,
     UesRestantesComponent,
     TeachersTableComponent,
+    AdminEditTeacherComponent,
   ],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
   exports: [
@@ -72,6 +80,7 @@ import { TeachersTableComponent } from './teachers-table/teachers-table.componen
     TeacherProfileComponent,
     UesRestantesComponent,
     TeachersTableComponent,
+    AdminEditTeacherComponent,
   ],
 })
 export class UiModule {}

@@ -1,10 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Enseigne, Prisma, PrismaClient, UE, User } from '@prisma/client';
 
-type ueProps = UE & {
-  enseigne?: Enseigne[];
-};
-
 const prisma = new PrismaClient();
 
 @Injectable()
@@ -91,14 +87,14 @@ export class TeachersService {
     const { where } = params;
     return prisma.enseigne.findFirst({ where });
   }
-  /*  async updateUser(params: {
-        where: Prisma.UserWhereUniqueInput;
-        data: Prisma.UserUpdateInput;
-      }): Promise<User> {
-        const { where, data } = params;
-        return prisma.user.update({
-          data,
-          where,
-        });
-      } */
+  public async updateUser(params: {
+    where: Prisma.UserWhereUniqueInput;
+    data: Prisma.UserUpdateInput;
+  }): Promise<User> {
+    const { where, data } = params;
+    return await prisma.user.update({
+      data,
+      where,
+    });
+  }
 }

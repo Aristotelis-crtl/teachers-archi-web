@@ -1,1 +1,51 @@
-<p>teachers-table works!</p>
+<nz-table
+  #editRowTable
+  [nzData]="listOfData"
+  [nzFrontPagination]="true"
+  class="overflow-scroll"
+  nzFixed
+>
+  <thead>
+    <tr>
+      <th
+        *ngFor="let column of listOfColumns"
+        [nzSortOrder]="column.sortOrder"
+        [nzSortFn]="column.sortFn"
+        [nzSortDirections]="column.sortDirections"
+        [nzFilterMultiple]="column.filterMultiple"
+        [nzFilters]="column.listOfFilter"
+        [nzFilterFn]="column.filterFn"
+        [nzShowFilter]="column.nzShowFilter ? false : true"
+        [nzShowSort]="column.nzShowFilter ? false : true"
+        [nzAlign]="column.nzAlign ? column.nzAlign : 'left'"
+      >
+        {{ column.name }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let user of editRowTable.data">
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.status }}</td>
+        <td>{{ user.minimumUC }}</td>
+
+        <td nzAlign="center">
+          <a routerLink="{{ user.id }}">Modifier</a>
+          -
+          <a
+            nz-popconfirm
+            nzPopconfirmTitle="Confirmer la suppression ?"
+            nzPopconfirmPlacement="bottom"
+            (nzOnConfirm)="confirm(user.id)"
+            (nzOnCancel)="cancel()"
+          >
+            <i nz-icon nzType="delete" nzTheme="outline" style="color: red"></i>
+          </a>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</nz-table>

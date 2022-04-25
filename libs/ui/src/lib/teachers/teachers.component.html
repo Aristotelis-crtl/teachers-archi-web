@@ -1,7 +1,20 @@
-<section *ngFor="let teacher of teachersD">
-  <p>{{ teacher.firstName }}</p>
-  <p>{{ teacher.lastName }}</p>
-</section>
-<nz-layout class="app-layout">
-  <button nz-button nzType="primary" (click)="create()">Créer un user</button>
-</nz-layout>
+<h1>Application de gestion des UES</h1>
+<div *ngIf="isLoggedIn; then thenBlock; else elseBlock"></div>
+<ng-template #thenBlock
+  ><nz-card [nzTitle]="'Bonjour ' + user?.firstName + ' ' + user?.lastName">
+    <p>
+      Si vous rencontrez un problème avec l'application, contacter
+      l'administrateur
+    </p>
+    <p>Administrateur: Frédéric Furst.</p>
+  </nz-card></ng-template
+>
+<ng-template #elseBlock
+  ><nz-card nzTitle="Bienvenue">
+    <p>
+      Si vous n'avez pas de compte enregistré sur l'application, veuillez
+      contactez l'administrateur.
+    </p>
+    <p>Administrateur: Frédéric Furst.</p>
+  </nz-card></ng-template
+>

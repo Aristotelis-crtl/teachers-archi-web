@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { IsSignedInGuard } from './is-signed-in';
+import { IsSignedInNotAdminGuard } from './is-signed-in-not-Admin';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/welcome' },
@@ -12,6 +14,7 @@ const routes: Routes = [
     path: 'profil',
     loadChildren: () =>
       import('./pages/profile/profile.module').then((m) => m.ProfileModule),
+    canActivate: [IsSignedInNotAdminGuard],
   },
   {
     path: 'ues',
@@ -19,6 +22,7 @@ const routes: Routes = [
       import('./pages/profile-details/profile-details.module').then(
         (m) => m.ProfileDetailsModule
       ),
+    canActivate: [IsSignedInNotAdminGuard],
   },
   {
     path: 'cours',
@@ -36,6 +40,7 @@ const routes: Routes = [
     path: 'uesRestantes',
     loadChildren: () =>
       import('./pages/ues-left/ues-left.module').then((m) => m.UesLeftModule),
+    canActivate: [IsSignedInGuard],
   },
   {
     path: 'gestion',
@@ -43,6 +48,7 @@ const routes: Routes = [
       import('./pages/admin-teachers/admin-teachers.module').then(
         (m) => m.AdminTeachersModule
       ),
+    canActivate: [IsSignedInGuard],
   },
   {
     path: 'gestion/:id',
@@ -50,6 +56,7 @@ const routes: Routes = [
       import('./pages/admin-edit/admin-edit.module').then(
         (m) => m.AdminEditModule
       ),
+    canActivate: [IsSignedInGuard],
   },
   {
     path: 'admin',
@@ -57,6 +64,7 @@ const routes: Routes = [
       import('./pages/admin-home/admin-home.module').then(
         (m) => m.AdminHomeModule
       ),
+    canActivate: [IsSignedInGuard],
   },
 ];
 

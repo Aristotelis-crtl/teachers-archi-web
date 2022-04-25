@@ -26,6 +26,7 @@ model User {
   minimumUC Int?
   status    Status
   Enseigne  Enseigne[]
+  admin     Boolean?
 }
 
 model Enseigne {

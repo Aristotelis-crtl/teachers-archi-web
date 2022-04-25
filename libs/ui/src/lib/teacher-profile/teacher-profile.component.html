@@ -1,18 +1,128 @@
-<nz-card nzTitle="Mes informations">
-  <div nz-row [nzGutter]="8">
-    <div nz-col [nzSpan]="12" style="font-weight: bold">
-      <p>Prénom:</p>
-      <p>Nom:</p>
-      <p>Nom utilisateur:</p>
-      <p>Status</p>
-      <p>Nombre d'UC minimum:</p>
+<nz-card nzTitle="Mes informations" [nzExtra]="extraTemplate">
+  <ng-template #extraTemplate>
+    <div *ngIf="!editMode; then thenBlock; else elseBlock"></div>
+    <ng-template #thenBlock> <a (click)="enableEdit()">Editer</a></ng-template>
+    <ng-template #elseBlock
+      ><a (click)="onSubmit()">Sauvegarder</a></ng-template
+    >
+  </ng-template>
+  <ng-template #thenBlock>
+    <form
+      nz-form
+      [formGroup]="validateForm"
+      class="login-form"
+      style="font-weight: bold"
+    >
+      <div nz-row>
+        <div nz-col nzSpan="8"><p>Prénom</p></div>
+        <div nz-col nzSpan="8" nzOffset="8">
+          <nz-form-item>
+            <nz-form-control
+              nzErrorTip="Veuillez entrer votre nom d'utilisateur"
+            >
+              <input
+                type="text"
+                nz-input
+                [defaultValue]="user?.firstName"
+                formControlName="firstName"
+                [placeholder]="user?.firstName"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8"><p>Nom:</p></div>
+        <div nz-col nzSpan="8" nzOffset="8">
+          <nz-form-item>
+            <nz-form-control
+              nzErrorTip="Veuillez entrer votre nom d'utilisateur"
+            >
+              <input
+                type="text"
+                nz-input
+                [defaultValue]="undefined"
+                formControlName="lastName"
+                [placeholder]="user?.lastName"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8"><p>Nom d'utilisateur:</p></div>
+        <div nz-col nzSpan="8" nzOffset="8">
+          <nz-form-item>
+            <nz-form-control
+              nzErrorTip="Veuillez entrer votre nom d'utilisateur"
+            >
+              <input
+                type="text"
+                [defaultValue]="undefined"
+                nz-input
+                formControlName="username"
+                [placeholder]="user?.username"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8"><p>Mot de passe:</p></div>
+        <div nz-col nzSpan="8" nzOffset="8">
+          <nz-form-item>
+            <nz-form-control
+              nzErrorTip="Veuillez entrer votre nom d'utilisateur"
+            >
+              <input
+                type="text"
+                nz-input
+                [defaultValue]="undefined"
+                formControlName="password"
+                [placeholder]="user?.password"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <div nz-row>
+        <div nz-col nzSpan="8"><p>Nombre d'UC minimum:</p></div>
+        <div nz-col nzSpan="8" nzOffset="8">
+          <nz-form-item>
+            <nz-form-control
+              nzErrorTip="Veuillez entrer votre nom d'utilisateur"
+            >
+              <nz-input-number
+                [nzMin]="1"
+                formControlName="minimumUC"
+                style="width: 100%"
+              ></nz-input-number>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <div *ngIf="editMode; then thenBlock; else elseBlock"></div>
+  <ng-template #thenBlock> </ng-template>
+  <ng-template #elseBlock>
+    <div nz-row [nzGutter]="8">
+      <div nz-col [nzSpan]="12" style="font-weight: bold">
+        <p>Prénom:</p>
+        <p>Nom:</p>
+        <p>Nom utilisateur:</p>
+        <p>Mot de passe:</p>
+        <p>Nombre d'UC minimum:</p>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <p>{{ user?.firstName }}</p>
+        <p>{{ user?.lastName }}</p>
+        <p>{{ user?.username }}</p>
+        <p>{{ user?.password }}</p>
+        <p>{{ user?.minimumUC }}</p>
+      </div>
     </div>
-    <div nz-col [nzSpan]="12">
-      <p>{{ user?.firstName }}</p>
-      <p>{{ user?.lastName }}</p>
-      <p>{{ user?.username }}</p>
-      <p>{{ user?.status }}</p>
-      <p>{{ user?.minimumUC || 'Non renseigné' }}</p>
-    </div>
-  </div>
+  </ng-template>
 </nz-card>

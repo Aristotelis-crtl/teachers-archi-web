@@ -52,6 +52,10 @@ export class TeachersService {
     return this.userSubject.value;
   }
 
+  public isSignedIn(): boolean {
+    return this.userValue ? true : false;
+  }
+
   public getNombreHeure(
     statusEnseignant: Status,
     nombreHeure: number,
@@ -81,7 +85,7 @@ export class TeachersService {
   logout() {
     localStorage.removeItem('user');
     this.userSubject.next(null);
-    this.router.navigate(['/account/login']);
+    this.router.navigate(['/']);
   }
 
   //Courses controllers

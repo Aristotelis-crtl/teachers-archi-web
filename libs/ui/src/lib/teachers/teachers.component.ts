@@ -9,39 +9,11 @@ import { User } from '@prisma/client';
 })
 export class TeachersComponent implements OnInit {
   public teachersD: User[] | undefined;
-  public user: any;
+  public user!: User | null;
+  isLoggedIn = false;
   constructor(public teachersService: TeachersService) {}
-
   ngOnInit(): void {
-    const teachersObs = this.teachersService.getTeachers();
-    teachersObs.subscribe((userData: User[]) => {
-      this.teachersD = userData;
-    });
-    /*  const userObs = this.teachersService.login('dzqdzqdq', 'password');
-    userObs.subscribe(() => {
-      console.log('hello');
-    }); */
-  }
-
-  public create() {
-    /* return this.teachersService.createUser({firstName: 'jacqueees', lastName: "moule"}).subscribe(response => {
-      console.log(response);
-    }); */
-    if (this.teachersD) {
-      console.log(
-        'teachd',
-        this.teachersD[0].username,
-        this.teachersD[0].password
-      );
-
-      this.teachersService.login(
-        this.teachersD[0].username,
-        this.teachersD[0].password
-      );
-    }
+    this.isLoggedIn = this.teachersService.isSignedIn();
     this.user = this.teachersService.userValue;
-    this.teachersService.getTeachers();
-
-    console.log('this.user', this.user);
   }
 }

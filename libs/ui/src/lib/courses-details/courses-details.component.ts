@@ -120,7 +120,6 @@ export class CoursesDetailsComponent implements OnInit {
             this.errorVisible = false;
           }
         }
-        console.log('this', this.route.snapshot.paramMap.get('id'));
         !this.errorVisible &&
           this.isVisible &&
           this.teachersService

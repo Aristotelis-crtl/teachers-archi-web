@@ -70,9 +70,7 @@ export class TeachersController {
   }
   @Delete('remove/:id')
   public async removeTeacher(@Param('id') id: string) {
-    return this.teachersService.removeTeacher({
-      where: { id: id },
-    });
+    return this.teachersService.removeTeacher(id);
   }
 
   @Post()

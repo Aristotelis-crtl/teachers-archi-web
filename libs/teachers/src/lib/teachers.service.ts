@@ -18,13 +18,17 @@ export class TeachersService {
       where,
     });
   }
-  public removeTeacher(params: {
-    where?: Prisma.UserWhereUniqueInput;
-  }): Promise<User> {
-    const { where } = params;
-    return prisma.user.delete({
-      where,
+  public async removeTeacher(id: string): Promise<User> {
+    const deleteEnseignement = prisma.enseigne.deleteMany({
+      where: { userId: id },
     });
+    const deleteUser = prisma.user.delete({ where: { id: id } });
+    const transaction = await prisma.$transaction([
+      deleteEnseignement,
+      deleteUser,
+    ]);
+
+    return transaction[1];
   }
   public createUser(data: Prisma.UserCreateInput): Promise<User> {
     return prisma.user.create({ data });

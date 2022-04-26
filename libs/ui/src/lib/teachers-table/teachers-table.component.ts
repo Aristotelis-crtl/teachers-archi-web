@@ -111,10 +111,9 @@ export class TeachersTableComponent implements OnInit {
   }
 
   confirm(id: string): void {
-    this.teachersService
-      .removeTeacher(id)
-      .subscribe((data: User) =>
-        this.message.info(`L'utilisateur ${data.username} a été supprimé`)
-      );
+    this.teachersService.removeTeacher(id).subscribe((data: User) => {
+      this.message.info(`L'utilisateur ${data.username} a été supprimé`);
+      this.listOfData = this.listOfData.filter((item) => item.id !== data.id);
+    });
   }
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UE } from '@prisma/client';
 import { enseignementTeacherProps, TeachersService } from '../teachers.service';
 import {
   NzTableFilterFn,
@@ -8,6 +7,9 @@ import {
   NzTableSortOrder,
 } from 'ng-zorro-antd/table';
 import { ActivatedRoute } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { Enseigne } from '@prisma/client';
+
 interface ColumnItem {
   name: string;
   sortOrder: NzTableSortOrder | null;
@@ -29,7 +31,8 @@ export class TeachersUesComponent implements OnInit {
   listOfDataFiltered!: enseignementTeacherProps['username'];
   constructor(
     public teachersService: TeachersService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modal: NzModalService
   ) {}
 
   ngOnInit(): void {
@@ -85,6 +88,23 @@ export class TeachersUesComponent implements OnInit {
           nzShowFilter: true,
         },
       ];
+    });
+  }
+  showConfirm(id: string): void {
+    console.log('id', id);
+    this.modal.confirm({
+      nzTitle: '<i>Do you Want to delete these items?</i>',
+      nzContent: '<b>Some descriptions</b>',
+      nzOnOk: () =>
+        this.teachersService
+          .removeEnseignement(id)
+          .subscribe(
+            (response: Enseigne) =>
+              (this.listOfData = this.listOfData.filter(
+                (item) => item.id != response.id
+              ))
+          ),
+      nzOkDanger: true,
     });
   }
 }

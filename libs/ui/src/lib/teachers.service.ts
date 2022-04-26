@@ -107,6 +107,11 @@ export class TeachersService {
   public removeTeacher(id: string): Observable<User> {
     return this.http.delete<User>(`${this.API_URL}/teachers/remove/${id}`);
   }
+  public removeEnseignement(id: string): Observable<Enseigne> {
+    return this.http.delete<Enseigne>(
+      `${this.API_URL}/teachers/remove/enseignement/${id}`
+    );
+  }
 
   public getAllEnseignementFromTeacher(
     id: string

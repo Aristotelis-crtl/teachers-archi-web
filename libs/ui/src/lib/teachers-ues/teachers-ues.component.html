@@ -20,6 +20,7 @@
       >
         {{ column.name }}
       </th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -54,6 +55,16 @@
           ></nz-avatar
         ></span>
         <span> {{ ue.heuresTD }} <nz-avatar nzText="UC"></nz-avatar></span>
+      </td>
+      <td nzAlign="center">
+        <button
+          nz-button
+          nzType="default"
+          nzDanger
+          (click)="showConfirm(ue.id)"
+        >
+          Se désinscrire
+        </button>
       </td>
     </tr>
   </tbody>

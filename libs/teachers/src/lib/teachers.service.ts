@@ -49,6 +49,9 @@ export class TeachersService {
       create: { ...data },
     });
   }
+  public removeEnseignement(id: string): Promise<Enseigne> {
+    return prisma.enseigne.delete({ where: { id: id } });
+  }
 
   public async getCourses(params: { where?: Prisma.UEWhereInput }) {
     const { where } = params;

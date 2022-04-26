@@ -72,6 +72,10 @@ export class TeachersController {
   public async removeTeacher(@Param('id') id: string) {
     return this.teachersService.removeTeacher(id);
   }
+  @Delete('remove/enseignement/:id')
+  public async removeEnseignement(@Param('id') id: string) {
+    return this.teachersService.removeEnseignement(id);
+  }
 
   @Post()
   public async createUser(@Body() postData: UserModel): Promise<UserModel> {

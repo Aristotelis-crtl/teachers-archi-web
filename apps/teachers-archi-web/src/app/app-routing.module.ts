@@ -4,9 +4,9 @@ import { IsSignedInGuard } from './is-signed-in';
 import { IsSignedInNotAdminGuard } from './is-signed-in-not-Admin';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/welcome' },
+  { path: '', pathMatch: 'full', redirectTo: '/accueil' },
   {
-    path: 'welcome',
+    path: 'accueil',
     loadChildren: () =>
       import('./pages/welcome/welcome.module').then((m) => m.WelcomeModule),
   },

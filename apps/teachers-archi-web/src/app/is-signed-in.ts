@@ -16,7 +16,7 @@ export class IsSignedInGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const user = localStorage.getItem('user');
     if (!user) {
-      this.router.navigate([`/welcome`]);
+      this.router.navigate([`/accueil`]);
       return false;
     }
     const userParsed = JSON.parse(user) as User;

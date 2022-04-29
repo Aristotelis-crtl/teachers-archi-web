@@ -29,7 +29,7 @@
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Profil" nzIcon="user">
+      <li nz-submenu nzOpen nzTitle="Profil" nzIcon="user" *ngIf="isLoggedIn()">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/profil">Mon compte</a>
@@ -39,7 +39,13 @@
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Administration" nzIcon="solution">
+      <li
+        nz-submenu
+        nzOpen
+        nzTitle="Administration"
+        nzIcon="solution"
+        *ngIf="isAdmin()"
+      >
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/admin">Tableau de bord</a>

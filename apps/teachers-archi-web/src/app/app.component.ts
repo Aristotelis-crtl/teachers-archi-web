@@ -11,18 +11,15 @@ export class AppComponent {
   imageSrc = './assets/logoUPJV_Bleu.png';
   isAdmin(): boolean {
     const user = localStorage.getItem('user');
-    if (!user) {
+    if (user === null) {
       return false;
     }
     const userParsed = JSON.parse(user) as User;
-    return userParsed.admin ? true : false;
+    return userParsed ? (userParsed.admin ? true : false) : false;
   }
 
   isLoggedIn(): boolean {
     const user = localStorage.getItem('user');
-    if (!user) {
-      return false;
-    }
-    return true;
+    return !user || user === 'null' ? false : true;
   }
 }

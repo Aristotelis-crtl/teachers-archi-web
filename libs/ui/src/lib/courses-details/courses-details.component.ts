@@ -26,7 +26,6 @@ export class CoursesDetailsComponent implements OnInit {
 
   private _isDead$ = new Subject();
 
-  //public userId = ''
   validateForm!: FormGroup;
   isVisible = false;
   errorVisible = false;
@@ -84,6 +83,7 @@ export class CoursesDetailsComponent implements OnInit {
   public showModal(): void {
     this.isVisible = true;
   }
+
   handleCancel(): void {
     this.isVisible = false;
   }

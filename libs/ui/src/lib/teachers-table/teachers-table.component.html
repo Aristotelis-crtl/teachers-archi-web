@@ -7,6 +7,8 @@
 >
   <thead>
     <tr>
+      <th nzWidth="60px"></th>
+
       <th
         *ngFor="let column of listOfColumns"
         [nzSortOrder]="column.sortOrder"
@@ -26,6 +28,11 @@
   <tbody>
     <ng-container *ngFor="let user of editRowTable.data">
       <tr>
+        <td
+          [nzExpand]="expandSet.has(user.id)"
+          (nzExpandChange)="onExpandChange(user.id, $event)"
+        ></td>
+
         <td>{{ user.username }}</td>
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
@@ -46,6 +53,141 @@
           </a>
         </td>
       </tr>
+      <tr [nzExpand]="expandSet.has(user.id)">
+        <div *ngFor="let enseignement of user.Enseigne" nz-row>
+          <div nz-col nzSpan="12">
+            <p>{{ enseignement?.ue?.intitule }}</p>
+          </div>
+          <div nz-col nzSpan="12">
+            <div nz-row>
+              <div nz-col nzSpan="8">
+                <div nz-row nzAlign="middle" style="place-content: center">
+                  <span>
+                    {{ enseignement.heuresCM }}
+                    <nz-avatar
+                      nzText="CM"
+                      style="background-color: powderblue"
+                    ></nz-avatar
+                  ></span>
+                </div>
+              </div>
+              <div nz-col nzSpan="8">
+                <div nz-row nzAlign="middle" style="place-content: center">
+                  <span>
+                    {{ enseignement.groupesTD }}
+                    <nz-avatar
+                      nzText="TD"
+                      style="background-color: powderblue"
+                    ></nz-avatar
+                  ></span>
+                </div>
+              </div>
+              <div nz-col nzSpan="8">
+                <div nz-row nzAlign="middle" style="place-content: center">
+                  <span>
+                    {{ enseignement.heuresTP }}
+                    <nz-avatar
+                      nzText="TP"
+                      style="background-color: powderblue"
+                    ></nz-avatar
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center">
+          <button nz-button nzType="default" (click)="showAddModal(user.id)">
+            Ajouter un enseignement
+          </button>
+        </div>
+      </tr>
     </ng-container>
   </tbody>
 </nz-table>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Inscrire le professeur à une UE"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="onSubmit()"
+  [nzOkDisabled]="!ueSelected"
+  nzWidth="75%"
+>
+  <ng-container *nzModalContent>
+    <div nz-row>
+      <div nz-col nzSpan="12"><p>UE:</p></div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="L'UE est obligatoire">
+            <nz-select
+              id="ue"
+              [(ngModel)]="ueSelectedId"
+              [nzShowArrow]="false"
+              (nzOnSearch)="search($event)"
+              nzShowSearch
+              nzServerSearch
+              (ngModelChange)="updateInputs($event)"
+              nzPlaceHolder="Choisir une UE"
+              style="width: 100%"
+            >
+              <nz-option
+                *ngFor="let o of listOfGroupOptionFiltered"
+                [nzLabel]="o.label"
+                [nzValue]="o.value"
+              ></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div *ngIf="ueSelected">
+      <form nz-form [formGroup]="validateForm" style="font-weight: bold">
+        <div nz-row>
+          <div nz-col nzSpan="12"><p>Nombre de groupes de CM:</p></div>
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-control [nzErrorTip]="'max ' + nbCMRestant">
+                <nz-input-number
+                  [nzMin]="1"
+                  [nzStep]="0.5"
+                  [nzMax]="nbCMRestant || 0"
+                  formControlName="CM"
+                ></nz-input-number>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col nzSpan="12"><p>Nombre de groupes de TD:</p></div>
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-control [nzErrorTip]="'max ' + nbTDRestant">
+                <nz-input-number
+                  [nzMin]="1"
+                  [nzStep]="0.5"
+                  [nzMax]="nbTDRestant || 0"
+                  formControlName="TD"
+                ></nz-input-number>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col nzSpan="12"><p>Nombre de groupes de TP:</p></div>
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-control [nzErrorTip]="'max ' + nbTPRestant">
+                <nz-input-number
+                  [nzMin]="1"
+                  [nzStep]="0.5"
+                  [nzMax]="nbTPRestant || 0"
+                  formControlName="TP"
+                ></nz-input-number>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-container>
+</nz-modal>

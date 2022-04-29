@@ -5,7 +5,6 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { User } from '@prisma/client';
 
 @Injectable({
   providedIn: 'root',

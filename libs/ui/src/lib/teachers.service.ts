@@ -44,8 +44,10 @@ export class TeachersService {
     return this.http.put<User>(`${this.API_URL}/teachers/update/${id}`, data);
   }
 
-  public getTeachers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.API_URL}/teachers`);
+  public getTeachers(): Observable<enseignementTeacherProps[]> {
+    return this.http.get<enseignementTeacherProps[]>(
+      `${this.API_URL}/teachers`
+    );
   }
 
   public get userValue(): User | null {

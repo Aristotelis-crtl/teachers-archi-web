@@ -9,7 +9,12 @@ export class TeachersService {
     where?: Prisma.UserWhereInput;
   }): Promise<User[]> {
     const { where } = params;
-    return prisma.user.findMany({ where, include: { Enseigne: {} } });
+    return prisma.user.findMany({
+      where,
+      include: {
+        Enseigne: { include: { ue: { select: { intitule: true } } } },
+      },
+    });
   }
 
   public getTeacher(params: { where?: Prisma.UserWhereInput }): Promise<User> {
@@ -102,6 +107,7 @@ export class TeachersService {
     const { where } = params;
     return prisma.enseigne.findFirst({ where });
   }
+
   public async updateUser(params: {
     where: Prisma.UserWhereUniqueInput;
     data: Prisma.UserUpdateInput;

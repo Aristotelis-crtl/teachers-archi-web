@@ -82,7 +82,7 @@
                   ></span>
                 </div>
               </div>
-              <div nz-col nzSpan="8">
+              <div nz-col nzSpan="6">
                 <div nz-row nzAlign="middle" style="place-content: center">
                   <span>
                     {{ enseignement.heuresTP }}
@@ -93,9 +93,35 @@
                   ></span>
                 </div>
               </div>
+              <div
+                nz-col
+                nzSpan="2"
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <a
+                  id="deleteEnseignement"
+                  nz-popconfirm
+                  nzPopconfirmTitle="Désinscrire le professeur?"
+                  nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="confirmDelete(enseignement.id)"
+                  (nzOnCancel)="cancel()"
+                >
+                  <i
+                    nz-icon
+                    nzType="minus-circle"
+                    nzTheme="outline"
+                    style="color: red"
+                  ></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
+
         <div style="display: flex; justify-content: center">
           <button nz-button nzType="default" (click)="showAddModal(user.id)">
             Ajouter un enseignement

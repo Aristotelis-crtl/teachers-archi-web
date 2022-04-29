@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { UE, User } from '@prisma/client';
+import { Enseigne, UE, User } from '@prisma/client';
 import {
   enseignementTeacherProps,
   TeachersService,
@@ -149,7 +149,7 @@ export class TeachersTableComponent implements OnInit {
     });
   }
   cancel(): void {
-    this.message.info('click cancel');
+    this.message.info('Suppresion annulé');
   }
 
   showAddModal(id: string) {
@@ -228,6 +228,13 @@ export class TeachersTableComponent implements OnInit {
     this.teachersService.removeTeacher(id).subscribe((data: User) => {
       this.message.info(`L'utilisateur ${data.username} a été supprimé`);
       this.listOfData = this.listOfData.filter((item) => item.id !== data.id);
+    });
+  }
+
+  confirmDelete(id: string): void {
+    this.teachersService.removeEnseignement(id).subscribe(() => {
+      this.message.info(`L'enseignant a été désinscrit`);
+      this.getTeachers();
     });
   }
 

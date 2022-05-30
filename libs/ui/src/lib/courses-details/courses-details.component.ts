@@ -127,24 +127,10 @@ export class CoursesDetailsComponent implements OnInit {
               this.teachersService.userValue?.id || '',
               this.ue?.id || '',
               this.enseigne?.id || '',
-              this.teachersService.getNombreHeure(
-                this.teachersService.userValue?.status || 'ATER',
-                this.ue?.heuresCM || 0,
-                formData.CM,
-                'CM'
-              ),
-              this.teachersService.getNombreHeure(
-                this.teachersService.userValue?.status || 'ATER',
-                this.ue?.heuresTD || 0,
-                formData.TD,
-                'TD'
-              ),
-              this.teachersService.getNombreHeure(
-                this.teachersService.userValue?.status || 'ATER',
-                this.ue?.heuresTP || 0,
-                formData.TP,
-                'TP'
-              ),
+              'ATER',
+              formData.CM || 0,
+              formData.TD || 0,
+              formData.TP || 0,
               nbGroupeCM === null ? 0 : nbGroupeCM,
               nbGroupeTD === null ? 0 : nbGroupeTD,
               nbGroupeTP === null ? 0 : nbGroupeTP

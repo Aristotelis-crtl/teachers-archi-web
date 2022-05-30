@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Enseigne, UE, User } from '@prisma/client';
+import { UE, User } from '@prisma/client';
 import {
   enseignementTeacherProps,
   TeachersService,
@@ -188,24 +188,10 @@ export class TeachersTableComponent implements OnInit {
               this.userChosen?.id || '',
               this.ueSelected?.id || '',
               '',
-              this.teachersService.getNombreHeure(
-                this.teachersService.userValue?.status || 'ATER',
-                this.ueSelected?.heuresCM || 0,
-                formData.CM,
-                'CM'
-              ),
-              this.teachersService.getNombreHeure(
-                this.teachersService.userValue?.status || 'ATER',
-                this.ueSelected?.heuresTD || 0,
-                formData.TD,
-                'TD'
-              ),
-              this.teachersService.getNombreHeure(
-                this.teachersService.userValue?.status || 'ATER',
-                this.ueSelected?.heuresTP || 0,
-                formData.TP,
-                'TP'
-              ),
+              this.userChosen?.status || 'VAC',
+              formData.CM || 0,
+              formData.TD || 0,
+              formData.TP || 0,
               nbGroupeCM === null ? 0 : nbGroupeCM,
               nbGroupeTD === null ? 0 : nbGroupeTD,
               nbGroupeTP === null ? 0 : nbGroupeTP

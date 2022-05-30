@@ -2358,6 +2358,14 @@ async function main() {
     },
   ];
 
+  await prisma.rules.create({
+    data: {
+      td: 1,
+      tp: 1,
+      cm: 1.5,
+      aterRule: 0.75,
+    },
+  });
   const asyncFunc = async () => {
     const unresolvedPromises = test.map(async (f) => {
       await prisma.uE.create({
@@ -2379,7 +2387,7 @@ async function main() {
     });
     const results = await Promise.all(unresolvedPromises);
   };
-  asyncFunc();
+  // asyncFunc();
 }
 
 main()

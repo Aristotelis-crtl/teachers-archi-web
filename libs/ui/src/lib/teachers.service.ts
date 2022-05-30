@@ -58,21 +58,6 @@ export class TeachersService {
     return this.userValue ? true : false;
   }
 
-  public getNombreHeure(
-    statusEnseignant: Status,
-    nombreHeure: number,
-    nombreGroupe: number,
-    typeUe: 'CM' | 'TP' | 'TD'
-  ): number {
-    // TD/TP = 1 UC (ATER = 0.75), CM = 1.5 UC
-    let res = 0;
-    if (typeUe == 'TD' || typeUe === 'TP') {
-      statusEnseignant === 'ATER'
-        ? (res = 0.75 * nombreHeure * nombreGroupe)
-        : (res = nombreHeure * nombreGroupe);
-      return res;
-    } else return 1.5 * nombreHeure * nombreGroupe;
-  }
   login(username: string, password: string) {
     return this.http
       .post<User>(`${this.API_URL}/teachers/login`, { username, password })
@@ -134,6 +119,7 @@ export class TeachersService {
     userId: string,
     uEId: string,
     id: string,
+    statut: Status,
     heuresCM?: number,
     heuresTD?: number,
     heuresTP?: number,
@@ -152,6 +138,7 @@ export class TeachersService {
         groupesCM,
         groupesTD,
         groupesTP,
+        statut,
       })
       .pipe(
         map((enseigne) => {

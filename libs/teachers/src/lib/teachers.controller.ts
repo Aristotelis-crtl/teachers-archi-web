@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { TeachersService } from './teachers.service';
-import { Enseigne, User as UserModel } from '@prisma/client';
+import { Enseigne, Status, User as UserModel } from '@prisma/client';
 
 interface loginProps {
   username: string;
@@ -103,7 +103,9 @@ export class TeachersController {
     });
   }
   @Post('enseigne')
-  public async addEnseignement(@Body() postData: Enseigne): Promise<Enseigne> {
+  public async addEnseignement(
+    @Body() postData: Enseigne & { status: Status }
+  ): Promise<Enseigne> {
     const {
       heuresCM,
       heuresTD,
@@ -114,6 +116,7 @@ export class TeachersController {
       userId,
       uEId,
       id,
+      status,
     } = postData;
     return this.teachersService.addEnseignement({
       heuresCM,
@@ -125,6 +128,7 @@ export class TeachersController {
       id,
       userId: userId,
       uEId: uEId,
+      status: status,
     });
   }
 }

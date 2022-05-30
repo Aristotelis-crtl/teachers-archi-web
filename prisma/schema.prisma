@@ -59,3 +59,11 @@ model UE {
   groupesTP Float?
   Enseigne  Enseigne[]
 }
+
+model Rules {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  td       Float
+  tp       Float
+  cm       Float
+  aterRule Float
+}

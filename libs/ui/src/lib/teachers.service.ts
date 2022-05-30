@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Enseigne, Prisma, UE, User, Status } from '@prisma/client';
+import { Enseigne, Prisma, UE, User, Status, Rules } from '@prisma/client';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 //const prisma = new PrismaClient()
@@ -44,10 +44,23 @@ export class TeachersService {
     return this.http.put<User>(`${this.API_URL}/teachers/update/${id}`, data);
   }
 
+  public updateRules(
+    data: Prisma.RulesUpdateInput,
+    id: string
+  ): Observable<Rules> {
+    return this.http.put<Rules>(
+      `${this.API_URL}/teachers/admin/rules/${id}`,
+      data
+    );
+  }
+
   public getTeachers(): Observable<enseignementTeacherProps[]> {
     return this.http.get<enseignementTeacherProps[]>(
       `${this.API_URL}/teachers`
     );
+  }
+  public getRules(): Observable<Rules> {
+    return this.http.get<Rules>(`${this.API_URL}/teachers/admin/rules`);
   }
 
   public get userValue(): User | null {

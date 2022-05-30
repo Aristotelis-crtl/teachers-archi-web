@@ -36,6 +36,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AdminTdbComponent } from './admin-tdb/admin-tdb.component';
+import { RulesComponent } from './rules/rules.component';
 
 @NgModule({
   imports: [
@@ -73,6 +74,7 @@ import { AdminTdbComponent } from './admin-tdb/admin-tdb.component';
     TeachersTableComponent,
     AdminEditTeacherComponent,
     AdminTdbComponent,
+    RulesComponent,
   ],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
   exports: [
@@ -86,6 +88,7 @@ import { AdminTdbComponent } from './admin-tdb/admin-tdb.component';
     TeachersTableComponent,
     AdminEditTeacherComponent,
     AdminTdbComponent,
+    RulesComponent,
   ],
 })
 export class UiModule {}

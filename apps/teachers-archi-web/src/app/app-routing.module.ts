@@ -66,6 +66,12 @@ const routes: Routes = [
       ),
     canActivate: [IsSignedInGuard],
   },
+  {
+    path: 'regles',
+    loadChildren: () =>
+      import('./pages/rules/rules.module').then((m) => m.AdminRulesModule),
+    canActivate: [IsSignedInGuard],
+  },
 ];
 
 @NgModule({

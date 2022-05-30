@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { TeachersService } from './teachers.service';
-import { Enseigne, Status, User as UserModel } from '@prisma/client';
+import { Enseigne, Rules, Status, User as UserModel } from '@prisma/client';
 
 interface loginProps {
   username: string;
@@ -66,6 +66,20 @@ export class TeachersController {
   public async getTeacher(@Param('id') id: string) {
     return this.teachersService.getTeacher({
       where: { id: id },
+    });
+  }
+  @Get('/admin/rules')
+  public async getRules() {
+    return this.teachersService.getRules();
+  }
+  @Put('admin/rules/:id')
+  public async updateRules(
+    @Body() postData: Rules,
+    @Param('id') id: string
+  ): Promise<Rules> {
+    return this.teachersService.updateRules({
+      where: { id: id },
+      data: postData,
     });
   }
   @Delete('remove/:id')

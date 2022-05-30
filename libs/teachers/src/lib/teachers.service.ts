@@ -3,6 +3,7 @@ import {
   Enseigne,
   Prisma,
   PrismaClient,
+  Rules,
   Status,
   UE,
   User,
@@ -177,6 +178,20 @@ export class TeachersService {
   }): Promise<User> {
     const { where, data } = params;
     return await prisma.user.update({
+      data,
+      where,
+    });
+  }
+  public async getRules(): Promise<Rules> {
+    return await prisma.rules.findFirst();
+  }
+
+  public async updateRules(params: {
+    where: Prisma.RulesWhereUniqueInput;
+    data: Prisma.RulesUpdateInput;
+  }): Promise<Rules> {
+    const { where, data } = params;
+    return await prisma.rules.update({
       data,
       where,
     });

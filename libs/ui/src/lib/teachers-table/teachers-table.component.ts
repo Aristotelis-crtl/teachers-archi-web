@@ -189,9 +189,9 @@ export class TeachersTableComponent implements OnInit {
               this.ueSelected?.id || '',
               '',
               this.userChosen?.status || 'VAC',
-              formData.CM || 0,
-              formData.TD || 0,
-              formData.TP || 0,
+              this.ueSelected?.heuresCM || 0,
+              this.ueSelected?.heuresTD || 0,
+              this.ueSelected?.heuresTP || 0,
               nbGroupeCM === null ? 0 : nbGroupeCM,
               nbGroupeTD === null ? 0 : nbGroupeTD,
               nbGroupeTP === null ? 0 : nbGroupeTP

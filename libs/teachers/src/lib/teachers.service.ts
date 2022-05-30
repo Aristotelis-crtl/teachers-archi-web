@@ -188,12 +188,60 @@ export class TeachersService {
 
   public async updateRules(params: {
     where: Prisma.RulesWhereUniqueInput;
-    data: Prisma.RulesUpdateInput;
+    data: Rules;
   }): Promise<Rules> {
     const { where, data } = params;
-    return await prisma.rules.update({
+    const oldRules = await this.getRules();
+    const allTeaching = await prisma.user.findMany({
+      include: {
+        Enseigne: true,
+      },
+    });
+    const updatedRules = await prisma.rules.update({
       data,
       where,
     });
+    const unresolvedPromises = allTeaching.map(async (user) => {
+      user.Enseigne.map(async (e) => {
+        await prisma.enseigne.update({
+          where: { id: e.id },
+          data: {
+            heuresCM: data.cm
+              ? e.groupesCM != 0
+                ? await this.getNombreHeure(
+                    user.status,
+                    e.heuresCM / (e.groupesCM * oldRules.cm),
+                    e.groupesCM,
+                    'CM'
+                  )
+                : 0
+              : e.heuresCM,
+            heuresTD: data.td
+              ? e.groupesTD != 0
+                ? await this.getNombreHeure(
+                    user.status,
+                    e.heuresTD / (e.groupesTD * oldRules.td),
+                    e.groupesTD,
+                    'TD'
+                  )
+                : 0
+              : e.heuresTD,
+            heuresTP: data.tp
+              ? e.groupesTP != 0
+                ? await this.getNombreHeure(
+                    user.status,
+                    e.heuresTP / (e.groupesTP * oldRules.tp),
+                    e.groupesTP,
+                    'TP'
+                  )
+                : 0
+              : e.heuresTP,
+          },
+        });
+      });
+    });
+    await Promise.all(unresolvedPromises);
+
+    return updatedRules;
   }
 }

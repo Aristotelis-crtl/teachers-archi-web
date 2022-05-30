@@ -1,12 +1,15 @@
 <div *ngIf="isLoggedIn; else isDisconnected">
-  <button
-    nz-button
-    nzType="primary"
-    (click)="logout()"
-    style="margin-right: 2rem"
-  >
-    Se déconnecter
-  </button>
+  <nz-row nzAlign="middle">
+    {{ this.user?.firstName + ' - ' + this.user?.lastName }}
+    <button
+      nz-button
+      nzType="primary"
+      (click)="logout()"
+      style="margin-right: 2rem; margin-left: 1rem"
+    >
+      Se déconnecter
+    </button>
+  </nz-row>
 </div>
 <ng-template #isDisconnected>
   <button

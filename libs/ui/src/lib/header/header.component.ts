@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '@prisma/client';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
-import { Observable, Observer } from 'rxjs';
 import { TeachersService } from '../teachers.service';
 
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<

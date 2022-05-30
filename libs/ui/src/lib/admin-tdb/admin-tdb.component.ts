@@ -61,10 +61,6 @@ export class AdminTdbComponent implements OnInit {
   usersLength?: number;
   isVisible = false;
 
-  onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
   showModal(): void {
     this.isVisible = true;
   }

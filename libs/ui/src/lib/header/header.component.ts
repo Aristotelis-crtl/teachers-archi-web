@@ -57,7 +57,6 @@ export class HeaderComponent implements OnInit {
 
   onSubmit() {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
       this.teachersService
         .login(
           this.validateForm.value.userName,

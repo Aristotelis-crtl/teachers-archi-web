@@ -91,7 +91,6 @@ export class TeachersUesComponent implements OnInit {
     });
   }
   showConfirm(id: string): void {
-    console.log('id', id);
     this.modal.confirm({
       nzTitle: '<i>Do you Want to delete these items?</i>',
       nzContent: '<b>Some descriptions</b>',

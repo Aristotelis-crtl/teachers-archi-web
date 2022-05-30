@@ -77,7 +77,6 @@ export class CoursesDetailsComponent implements OnInit {
       )
       .subscribe((enseigne: Enseigne) => {
         this.enseigne = enseigne;
-        console.log('enseigne:', this.enseigne);
       });
   }
   public showModal(): void {

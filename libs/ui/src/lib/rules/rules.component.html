@@ -17,17 +17,14 @@
         <div nz-col nzSpan="8"><p>Nombre d'UC par heure de CM:</p></div>
         <div nz-col nzSpan="8" nzOffset="8">
           <nz-form-item>
-            <nz-form-control
-              nzErrorTip="Veuillez entrer votre nom d'utilisateur"
-            >
-              <input
-                type="number"
-                nz-input
-                [defaultValue]="rules?.cm"
-                formControlName="cm"
-                [placeholder]="rules?.cm"
-              />
-            </nz-form-control>
+            <input
+              type="number"
+              nz-input
+              [defaultValue]="rules?.cm"
+              formControlName="cm"
+              [placeholder]="rules?.cm"
+              min="0"
+            />
           </nz-form-item>
         </div>
       </div>
@@ -35,17 +32,14 @@
         <div nz-col nzSpan="8"><p>Nombre d'UC par heure de TD:</p></div>
         <div nz-col nzSpan="8" nzOffset="8">
           <nz-form-item>
-            <nz-form-control
-              nzErrorTip="Veuillez entrer votre nom d'utilisateur"
-            >
-              <input
-                type="number"
-                nz-input
-                [defaultValue]="rules?.td"
-                formControlName="td"
-                [placeholder]="rules?.td"
-              />
-            </nz-form-control>
+            <input
+              type="number"
+              nz-input
+              [defaultValue]="rules?.td"
+              formControlName="td"
+              [placeholder]="rules?.td"
+              min="0"
+            />
           </nz-form-item>
         </div>
       </div>
@@ -53,17 +47,14 @@
         <div nz-col nzSpan="8"><p>Nombre d'UC par heure de TP:</p></div>
         <div nz-col nzSpan="8" nzOffset="8">
           <nz-form-item>
-            <nz-form-control
-              nzErrorTip="Veuillez entrer votre nom d'utilisateur"
-            >
-              <input
-                type="number"
-                [defaultValue]="rules?.tp"
-                nz-input
-                formControlName="tp"
-                [placeholder]="rules?.tp"
-              />
-            </nz-form-control>
+            <input
+              type="number"
+              [defaultValue]="rules?.tp"
+              nz-input
+              formControlName="tp"
+              [placeholder]="rules?.tp"
+              min="0"
+            />
           </nz-form-item>
         </div>
       </div>
@@ -73,17 +64,14 @@
         </div>
         <div nz-col nzSpan="8" nzOffset="8">
           <nz-form-item>
-            <nz-form-control
-              nzErrorTip="Veuillez entrer votre nom d'utilisateur"
-            >
-              <input
-                type="number"
-                nz-input
-                [defaultValue]="rules?.aterRule"
-                formControlName="aterRule"
-                [placeholder]="rules?.aterRule"
-              />
-            </nz-form-control>
+            <input
+              type="number"
+              nz-input
+              [defaultValue]="rules?.aterRule"
+              formControlName="aterRule"
+              [placeholder]="rules?.aterRule"
+              min="0"
+            />
           </nz-form-item>
         </div>
       </div>
